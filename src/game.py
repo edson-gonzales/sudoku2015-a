@@ -40,7 +40,11 @@ class Game(object):
                 puzzle.append((position, board[position]))
                 deduced[position] = board[position]
                 self.deduce(deduced)
-        return self.board_for_entries(puzzle)
+        board = self.board_for_entries(puzzle)
+        for position in xrange(81):
+            if board[position] is None:
+                board[position] = 0
+        return board
 
     def board_for_entries(self, entries):
         """Get array with tuples of position and value.
