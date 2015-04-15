@@ -44,6 +44,9 @@ class Game(object):
         for position in xrange(81):
             if board[position] is None:
                 board[position] = 0
+            else:
+                board[position] += 1
+
         return board
 
     def board_for_entries(self, entries):
