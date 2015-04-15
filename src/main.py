@@ -11,6 +11,7 @@ from board import *
 
 def main_menu():
     menu = Menu('Sudoku Solver')
+    menu.text = "Any Text"
     menu.clear_items()
     menu.add_item((1, 'Configuration Game', config_menu))
     menu.add_item((2, 'Start Game', game_menu))

@@ -9,9 +9,10 @@ class Menu(object):
 
     __metaclass__ = Singleton
 
-    def __init__(self, name, items=None):
+    def __init__(self, name, items=None, text=None):
         self.name = name
         self.items = []
+        self.text = ''
 
     def add_item(self, item):
         """Get a tuple of id,name and function, in order to get action for each
@@ -36,6 +37,7 @@ class Menu(object):
         for x in range(0, len(self.name)):
             line += "="
         print(line + "\n")
+        print(self.text + '\n')
         for item in self.items:
             print("    " + str(item[0]) + ". " + item[1])
 
