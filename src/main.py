@@ -11,7 +11,7 @@ from board import *
 
 def main_menu():
     menu = Menu('Sudoku Solver')
-    menu.text = "Any Text"
+    menu.text = "Sudoku is a puzzle game designed for\na single player, much like a crossword puzzle."
     menu.clear_items()
     menu.add_item((1, 'Configuration Game', config_menu))
     menu.add_item((2, 'Start Game', game_menu))
@@ -67,13 +67,14 @@ def game():
     sudoku_game = Game("easy")
     board = Board(sudoku_game.generate_game())
     print board.print_top_menu()
-    # print board.print_board()
+    print board.print_board()
     c = 0
     for x in board.board:
         if x:
             c += 1
     c = 81 - c
     print("Missing numbers: %i" % c)
+    print sudoku_game.hints
     raw_input('\n\nPress any key: ')
     game_menu()
 

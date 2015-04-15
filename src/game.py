@@ -6,11 +6,16 @@
 
 import random
 
+from utils.limits import Limits
 
-class Game(object):
 
-    def __init__(self, level):
+class Game(Limits):
+
+    def __init__(self, level,max_threshold=30,min_threshold=20,hints=None):
         self.level = level
+        self.max_threshold = max_threshold
+        self.min_threshold = min_threshold
+        self.hints = []
 
     def generate_game(self):
         """Call to make_puzzle with a empty board to generate game
@@ -31,38 +36,20 @@ class Game(object):
         board -- Array with all values solved for sudoku.
         return -- Array e.g.: [4, 9, 3, None, 5, ...., 8, 8, None, None, 1]
         """
-        """ Implement random according level defined """
-        puzzle = []
-        # Deduced will use basic board for iteration conditional and fill it for each value found
-        deduced = [None] * 81
-        order = random.sample(xrange(81), 81)
-        print order
-        for position in order:
-            if deduced[position] is None:
-                puzzle.append((position, board[position]))
-                deduced[position] = board[position]
-                self.deduce(deduced)
-        board = self.board_for_entries(puzzle)
+        level = random.randint(self.min_threshold,self.max_threshold)
+        init_level = 0
+        while init_level <= level:
+            position = random.randint(0,80)
+            if board[position] is not None:
+                self.hints.append((board[position]+1,position))
+                board[position] = None
+                init_level +=1
+
         for position in xrange(81):
             if board[position] is None:
                 board[position] = 0
             else:
                 board[position] += 1
-
-        return board
-
-    def board_for_entries(self, entries):
-        """Get array with tuples of position and value.
-        This method will return an array with final array
-        with values (Numbers and None).
-
-        Keyword arguments:
-        entries -- Array of tuples e.g.: [(23, 5), (80, 9),..., (2, 5), (15, 1)]
-        return  -- Array e.g.: [4, 9, 3, None, 5, ...., 8, 8, None, None, 1]
-        """
-        board = [None] * 81
-        for position, number in entries:
-            board[position] = number
         return board
 
     def get_solution(self, board):
@@ -122,12 +109,13 @@ class Game(object):
         """
         while True:
             stuck, guess, count = True, None, 0
-            # fill in any spots determined by direct conflicts
             allowed, needed = self.calculate_bits(board)
-            board, allowed, stuck, guess, count = self.move_on_board(board, allowed, stuck, guess, count)
+            try:
+                board, allowed, stuck, guess, count = self.move_on_board(board, allowed, stuck, guess, count)
+            except:
+                pass
             if not stuck:
                 allowed, needed = self.calculate_bits(board)
-            # fill in any spots determined by elimination of other locations
             board, stuck, guess, count = self.move_on_board_for_axis(needed ,allowed ,board,guess, count, stuck)
             if stuck:
                 return self.get_is_stuck(guess)
@@ -156,7 +144,10 @@ class Game(object):
         return  -- Tuple of (board, stuck, guess, count)
         """
         for axis in xrange(3):
-            board, stuck, guess, count = self.move_on_x_position(needed, allowed, board, guess, count, axis, stuck)
+            try:
+                board, stuck, guess, count = self.move_on_x_position(needed, allowed, board, guess, count, axis, stuck)
+            except:
+                pass
         return board, stuck, guess, count
 
     def move_on_x_position(self,needed ,allowed ,board, guess, count, axis, stuck):
@@ -270,64 +261,6 @@ class Game(object):
             elif stuck:
                 guess, count = self.pick_better(guess, count, [(position, number) for number in numbers])
         return zero, board, stuck, guess, count
-
-    def calculate_bits(self, board):
-        """Get a board that require verify if a position is allowed according with
-         sudoku rules
-
-        Keyword arguments:
-        board -- Array e.g.: [[None, None,..., 1, None]]
-        return  -- Two arrays "Allowed" and "Needed" with figure bits value
-        """
-        allowed, needed = [e is None and 511 or 0 for e in board], []
-        for axis in xrange(3):
-            for x in xrange(9):
-                bits = self.axis_missing(board, x, axis)
-                needed.append(bits)
-                for y in xrange(9):
-                    allowed[self.set_position_for(x, y, axis)] &= bits
-        return allowed, needed
-
-    def axis_missing(self, board, x, axis):
-        """Verify the missing axis using the board
-
-        Keyword arguments:
-        board -- Array e.g.: [[None, 8,..., 1, None]]
-        x -- position in axis X
-        axis -- axis of board in current context.
-        return  -- return a figure bits
-        """
-        bits = 0
-        for y in xrange(9):
-            current_value = board[self.set_position_for(x, y, axis)]
-            if current_value is not None:
-                bits |= 1 << current_value
-        return 511 ^ bits
-
-    def set_position_for(self, x, y, axis=0):
-        """Determine of position in sudoku for current arguments.
-
-        Keyword arguments:
-        x -- position in axis X
-        y -- position in axis y
-        axis -- axis of board in current context.
-        return  -- a position in array that contain all values e.g: Row:2 Column: 3, it will return 12
-        """
-        if axis == 0:
-            return x * 9 + y
-        elif axis == 1:
-            return y * 9 + x
-        else:
-            return (0, 3, 6, 27, 30, 33, 54, 57, 60)[x] + (0, 1, 2, 9, 10, 11, 18, 19, 20)[y]
-
-    def list_bits(self, bits):
-        """Determine when bits is allowed or needed returning and array with possible values of solution
-
-        Keyword arguments:
-        bits -- Get a figure bits
-        return  -- Return an Array of numbers candidate of solution e.g.: [1, 2, 3, 4, 5, 7, 8, 9]
-        """
-        return [value for value in xrange(9) if 0 != bits & 1 << value]
 
     def pick_better(self, guess, count, positions_in_spot):
         """Determine with of positions in spot is the best to solve puzzle.
