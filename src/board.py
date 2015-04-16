@@ -2,9 +2,6 @@
 # author: Daniel Jauergui
 # date: 4-13-2015
 
-import os
-from utils.singleton import Singleton
-
 
 class Board(object):
 
@@ -13,11 +10,15 @@ class Board(object):
         self.code = code
 
     def print_ui(self):
+        """ Print the title, Menus and Board
+        """
         self.print_title()
         self.print_top_menu()
         self.print_board()
 
     def print_title(self):
+        """ Print the title
+        """
         spaces = '      '
         title = '\n' + spaces
         title += chr(219)+chr(219)+chr(219)+chr(219)+chr(219)+chr(219)+chr(219)+chr(187)+chr(219)+chr(219)+chr(187)
@@ -58,8 +59,9 @@ class Board(object):
         print title
 
     def print_top_menu(self):
+        """ Print the top menu
+        """
         left_spaces = '           '
-        # Top Menu
         top_menu = ''
         top_menu += left_spaces + chr(201)
         for line_vertical in xrange(11):
@@ -92,6 +94,8 @@ class Board(object):
         print top_menu
 
     def print_board(self):
+        """ Print the Board
+        """
         for x in xrange(81):
             if self.board[x] == 0:
                 self.board[x] = self.code
