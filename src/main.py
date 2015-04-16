@@ -18,6 +18,7 @@ def main_menu():
     menu.add_item((0, 'Exit', None))
     menu.ask()
 
+
 def config_menu():
     menu = Menu('Sudoku Solver - Config Section')
     menu.clear_items()
@@ -62,19 +63,15 @@ def game_menu():
 
 def game():
     os.system('cls')
-    print ('\n                         Sudoku Game')
-    print ('                         """""" """"\n')
-    sudoku_game = Game("easy")
-    board = Board(sudoku_game.generate_game())
-    print board.print_top_menu()
-    print board.print_board()
-    c = 0
-    for x in board.board:
-        if x:
-            c += 1
-    c = 81 - c
-    print("Missing numbers: %i" % c)
-    print sudoku_game.hints
+    sudoku_game = Game(20, 30)
+    sudoku_game.generate_game()
+    board = Board(sudoku_game.board, chr(178))
+    board.print_ui()
+    c = len(sudoku_game.hints)
+    print("Missing numbers: %i \n" % c)
+    for x in sudoku_game.hints:
+        sudoku_game.board[x[0]] = x[1]
+    board.print_board()
     raw_input('\n\nPress any key: ')
     game_menu()
 

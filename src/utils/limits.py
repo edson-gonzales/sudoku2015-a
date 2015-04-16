@@ -2,6 +2,7 @@
 # author: Daniel Jauergui
 # date: 3-31-2015
 
+
 class Limits(object):
     def axis_missing(self, board, x, axis):
         """Verify the missing axis using the board
@@ -39,7 +40,7 @@ class Limits(object):
         """Determine when bits is allowed or needed returning and array with possible values of solution
 
         Keyword arguments:
-        bits -- Get a figure bits
+        bits -- Get a list of bits
         return  -- Return an Array of numbers candidate of solution e.g.: [1, 2, 3, 4, 5, 7, 8, 9]
         """
         return [value for value in xrange(9) if 0 != bits & 1 << value]
