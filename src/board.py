@@ -2,12 +2,17 @@
 # author: Daniel Jauergui
 # date: 4-13-2015
 
+from utils.singleton import Singleton
+
 
 class Board(object):
 
-    def __init__(self, board, code='*'):
+    __metaclass__ = Singleton
+
+    def __init__(self, code='*', board=[], hints=[]):
         self.board = board
         self.code = code
+        self.hints = hints
 
     def print_ui(self):
         """ Print the title, Menus and Board
@@ -15,6 +20,12 @@ class Board(object):
         self.print_title()
         self.print_top_menu()
         self.print_board()
+
+    def set_hint(self):
+        for x in self.hints:
+            if self.board[x[0]] == 0:
+                self.board[x[0]] = x[1]
+                break
 
     def print_title(self):
         """ Print the title
@@ -96,9 +107,6 @@ class Board(object):
     def print_board(self):
         """ Print the Board
         """
-        for x in xrange(81):
-            if self.board[x] == 0:
-                self.board[x] = self.code
         left_spaces = '          '
         characters = ('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H')
         board_ui = left_spaces + '   ' + '  1 '+'  2 '+'  3 '+'  4 '+'  5 '+'  6 '+'  7 '+'  8 '+'  9 '+'\n'
@@ -163,4 +171,4 @@ class Board(object):
                 board_ui += chr(205)
         board_ui += chr(205) + chr(205) + chr(205)
         board_ui += chr(188) + '\n'
-        print board_ui
+        print board_ui.replace("0", self.code);

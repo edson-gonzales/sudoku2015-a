@@ -20,7 +20,7 @@ class Menu(object):
         item added to current Menu
 
         Keyword arguments:
-        item -- A Tuple of int, string object eg: (1,'Item of Menu', function).
+        item -- A Tuple of int, string object eg: (1,'Item of Menu', function, parameter).
         """
         self.items.append(item)
 
@@ -68,9 +68,15 @@ class Menu(object):
         option -- A Tuple of int, string object where execute the object
         assigned to the item.
         """
+        item_selected = None
         for item in self.items:
             if item[0] == option:
-                item[2]()
+                item_selected = item
+        if item_selected is not None:
+            if item_selected[3] == 0:
+                item_selected[2]()
+            else:
+                item_selected[2](item_selected[3])
 
     def destroy(self):
         del self
