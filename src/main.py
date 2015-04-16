@@ -9,24 +9,24 @@ from game import *
 from board import *
 
 
-def main_menu():
+def display_main_menu():
     menu = Menu('Sudoku Solver')
     menu.text = "Sudoku is a puzzle game designed for\na single player, much like a crossword puzzle."
     menu.clear_items()
-    menu.add_item((1, 'Configuration Game', config_menu))
+    menu.add_item((1, 'Configuration Game', display_config_menu))
     menu.add_item((2, 'Start Game', game_menu))
     menu.add_item((0, 'Exit', None))
     menu.ask()
 
 
-def config_menu():
+def display_config_menu():
     menu = Menu('Sudoku Solver - Config Section')
     menu.clear_items()
-    menu.add_item((1, 'Select Level', config_menu ))
-    menu.add_item((2, 'Select Algorithm', config_menu ))
-    menu.add_item((3, 'Print Config File', print_config_file ))
+    menu.add_item((1, 'Select Level', display_config_menu))
+    menu.add_item((2, 'Select Algorithm', display_config_menu))
+    menu.add_item((3, 'Print Config File', print_config_file))
     menu.add_item((4, 'Print Config Level', print_level_file))
-    menu.add_item((5, 'Back', main_menu ))
+    menu.add_item((5, 'Back', display_main_menu))
     menu.add_item((0, 'Exit', None))
     menu.ask()
 
@@ -38,7 +38,7 @@ def print_config_file():
     config = Configuration(file_obj.read_content())
     print (config.get_xml_as_string())
     raw_input('\n\nPress any key: ')
-    config_menu()
+    display_config_menu()
 
 
 def print_level_file():
@@ -48,7 +48,7 @@ def print_level_file():
     config = Configuration(file_obj.read_content())
     print (config.level)
     raw_input('\n\nPress any key: ')
-    config_menu()
+    display_config_menu()
 
 
 def game_menu():
@@ -56,7 +56,7 @@ def game_menu():
     menu.clear_items()
     menu.add_item((1, 'Start New Game', game))
     menu.add_item((2, 'Import Game', game_menu))
-    menu.add_item((3, 'Back', main_menu))
+    menu.add_item((3, 'Back', display_main_menu))
     menu.add_item((0, 'Exit', None))
     menu.ask()
 
@@ -75,4 +75,4 @@ def game():
     raw_input('\n\nPress any key: ')
     game_menu()
 
-main_menu()
+display_main_menu()

@@ -5,6 +5,7 @@
 import os
 from utils.singleton import Singleton
 
+
 class Menu(object):
 
     __metaclass__ = Singleton
@@ -15,7 +16,7 @@ class Menu(object):
         self.text = ''
 
     def add_item(self, item):
-        """Get a tuple of id,name and function, in order to get action for each
+        """Get array of id,name and function, in order to get action for each
         item added to current Menu
 
         Keyword arguments:
@@ -28,8 +29,9 @@ class Menu(object):
         """
         self.items = []
 
-    def draw(self):
-        """Print Current menu and its items.
+    def print_menu(self):
+        """As this class is a singleton, this method will print
+        the name of menu, text description and items.
         """
         os.system("cls")
         print(self.name)
@@ -48,7 +50,7 @@ class Menu(object):
         """
         option = 999
         while option != 0:
-            self.draw()
+            self.print_menu()
             try:
                 option = input("\n\nPlease select an option: ")
                 val = int(option)
