@@ -2,7 +2,6 @@
 # author: Daniel Jauergui
 # date: 3-31-2015
 
-
 from configuration.configuration import *
 from file_manager.file_manager import *
 from menu import Menu
@@ -19,26 +18,110 @@ def display_main_menu():
     menu.text = "Sudoku is a puzzle game designed for\na single player, much like a crossword puzzle."
     menu.clear_items()
     menu.add_item((1, 'Start Game', game_menu, 0))
-    menu.add_item((2, 'Configuration Game', display_config_menu, 0))
+    menu.add_item((2, 'Game Configuration', display_configuration_menu, 0))
     menu.add_item((0, 'Exit', None))
     menu.ask()
 
 
-def display_config_menu():
+def display_configuration_menu():
     """Sub menu of Main,this function provide to user options to manage the configuration of application
     in order to support changes and persistent configuration.
     Define a menu object that is provided with Title, Description and
     items, it calls an ask function in order to get an option selected by user.
     """
-    menu = Menu('Sudoku Solver - Config Section')
+    menu = Menu('Sudoku Solver - Configuration')
+    menu.text = get_formatted_configuration()
     menu.clear_items()
-    menu.add_item((1, 'Select Level', display_config_menu, 0))
-    menu.add_item((2, 'Select Algorithm', display_config_menu, 0))
-    menu.add_item((3, 'Print Config File', print_config_file, 0))
-    menu.add_item((4, 'Print Config Level', print_level_file, 0))
+    menu.add_item((1, 'Modify Level', modify_level_menu, 0))
+    menu.add_item((2, 'Modify Algorithm', modify_algorithm_menu, 0))
+    menu.add_item((3, 'Back', display_main_menu, 0))
+    menu.add_item((0, 'Exit', None))
+    menu.ask()
+
+# get_formatted_configuration method
+# author: Josue Mendoza
+# date: 4-19-2015
+
+CONFIGURATION_FILE_PATH = 'configuration\\xml_config.xml'
+
+
+def get_formatted_configuration():
+    """Returns a string containing the configuration data formatted
+    so it has the indentation the menu has.
+    """
+    config_file = File(CONFIGURATION_FILE_PATH)
+    configuration = Configuration(config_file.read_content())
+    config_txt = '    Configuration:\n    ==============\n' + \
+                 '    Level: ' + configuration.level + '\n' + \
+                 '    Algorithm: ' + configuration.algorithm
+    return config_txt
+
+
+# modify_level_menu method
+# author: Josue Mendoza
+# date: 4-19-2015
+
+
+def modify_level_menu():
+    """Displays the corresponding menu for modifying the level in the
+    configuration.
+    """
+    menu = Menu('Sudoku Solver - Configuration')
+    menu.text = 'Select the new level for the game:'
+    menu.clear_items()
+    menu.add_item((1, 'Easy', modify_configuration, ('level', 'Easy')))
+    menu.add_item((2, 'Medium', modify_configuration, ('level', 'Medium')))
+    menu.add_item((3, 'Hard', modify_configuration, ('level', 'Hard')))
+    menu.add_item((4, 'Custom', modify_configuration, ('level', 'Custom')))
     menu.add_item((5, 'Back', display_main_menu, 0))
     menu.add_item((0, 'Exit', None))
     menu.ask()
+
+
+# modify_algorithm_menu method
+# author: Josue Mendoza
+# date: 4-19-2015
+
+
+
+def modify_algorithm_menu():
+    """Displays the corresponding menu for modifying the algorithm in the
+    configuration.
+    """
+    menu = Menu('Sudoku Solver - Configuration')
+    menu.text = 'Select the new algorithm for the game:'
+    menu.clear_items()
+    menu.add_item((1, 'Norvig', modify_configuration, ('algorithm', 'Norvig')))
+    menu.add_item((2, 'BackTrack', modify_configuration, ('algorithm', 'BackTrack')))
+    menu.add_item((3, 'BruteForce', modify_configuration, ('algorithm', 'BruteForce')))
+    menu.add_item((4, 'Back', display_main_menu, 0))
+    menu.add_item((0, 'Exit', None))
+    menu.ask()
+
+
+# modify_configuration method
+# author: Josue Mendoza
+# date: 4-19-2015
+
+
+
+def modify_configuration(config_data):
+    """Modifies the configuration based on a tuple retrieved as an argument.
+    Modifications are persisted in the configuration xml file.
+    Keyword Arguments:
+    config_data -- a tuple containing the setting name and the new value
+    config
+    """
+    config_file = File(CONFIGURATION_FILE_PATH)
+    setting = config_data[0]
+    new_value = config_data[1]
+    configuration = Configuration(config_file.read_content())
+    setattr(configuration, setting, new_value)
+    config_file.write_content(configuration.get_xml_as_string())
+    display_configuration_menu()
+
+
+
 
 
 def print_config_file():
