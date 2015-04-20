@@ -13,13 +13,21 @@ class Board(object):
         self.board = board
         self.code = code
         self.hints = hints
+        self.resolved = []
+
+    def get_resolved_game(self):
+        for x in xrange(81):
+            self.resolved.append(self.board[x])
+        for x in self.hints:
+            if self.resolved[x[0]] == 0:
+                self.resolved[x[0]] = x[1]
 
     def print_ui(self):
         """ Print the title, Menus and Board
         """
         self.print_title()
         self.print_top_menu()
-        self.print_board()
+        self.print_board(self.board)
 
     def set_hint(self):
         for x in self.hints:
@@ -104,7 +112,7 @@ class Board(object):
         top_menu += chr(188) + '\n'
         print top_menu
 
-    def print_board(self):
+    def print_board(self, board):
         """ Print the Board
         """
         left_spaces = '          '
@@ -122,15 +130,15 @@ class Board(object):
         board_ui += chr(187) + '\n'
         position = 0
         for y in xrange(8):
-            board_ui += left_spaces + ' ' + characters[y]+' ' + chr(186)+' ' + str(self.board[position])
+            board_ui += left_spaces + ' ' + characters[y]+' ' + chr(186)+' ' + str(board[position])
             board_ui += ' '+chr(179)
-            board_ui += ' ' + str(self.board[position+1]) + ' '+chr(179)+' ' + str(self.board[position+2])
+            board_ui += ' ' + str(board[position+1]) + ' '+chr(179)+' ' + str(board[position+2])
             board_ui += ' ' + chr(186)
-            board_ui += ' ' + str(self.board[position+3]) + ' '+chr(179)+' ' + str(self.board[position+4])
+            board_ui += ' ' + str(board[position+3]) + ' '+chr(179)+' ' + str(board[position+4])
             board_ui += ' ' + chr(179)
-            board_ui += ' ' + str(self.board[position+5]) + ' '+chr(186)+' ' + str(self.board[position+6])
+            board_ui += ' ' + str(board[position+5]) + ' '+chr(186)+' ' + str(board[position+6])
             board_ui += ' ' + chr(179)
-            board_ui += ' ' + str(self.board[position+7]) + ' '+chr(179)+' ' + str(self.board[position+8])
+            board_ui += ' ' + str(board[position+7]) + ' '+chr(179)+' ' + str(board[position+8])
             board_ui += ' ' + chr(186) + '\n'
             board_ui += left_spaces + '   ' + chr(204)
             position += 9
@@ -155,11 +163,11 @@ class Board(object):
                 board_ui += chr(196) + chr(196) + chr(196)
                 board_ui += chr(185) + '\n'
 
-        board_ui += left_spaces + ' I ' + chr(186) + ' ' + str(self.board[position]) + ' ' + chr(179) + ' '
-        board_ui += str(self.board[position+1]) + ' ' + chr(179) + ' ' + str(self.board[position+2]) + ' ' + chr(186)
-        board_ui += ' ' + str(self.board[position+3]) + ' ' + chr(179) + ' ' + str(self.board[position+4]) + ' '
-        board_ui += chr(179) + ' ' + str(self.board[position+5]) + ' ' + chr(186) + ' ' + str(self.board[position+6])
-        board_ui += ' '+chr(179)+' ' + str(self.board[position+7]) + ' ' + chr(179) + ' ' + str(self.board[position+8])
+        board_ui += left_spaces + ' I ' + chr(186) + ' ' + str(board[position]) + ' ' + chr(179) + ' '
+        board_ui += str(board[position+1]) + ' ' + chr(179) + ' ' + str(board[position+2]) + ' ' + chr(186)
+        board_ui += ' ' + str(board[position+3]) + ' ' + chr(179) + ' ' + str(board[position+4]) + ' '
+        board_ui += chr(179) + ' ' + str(board[position+5]) + ' ' + chr(186) + ' ' + str(board[position+6])
+        board_ui += ' '+chr(179)+' ' + str(board[position+7]) + ' ' + chr(179) + ' ' + str(board[position+8])
         board_ui += ' ' + chr(186) + '\n'
         board_ui += left_spaces + '   ' + chr(200)
         for n in xrange(8):
@@ -171,4 +179,4 @@ class Board(object):
                 board_ui += chr(205)
         board_ui += chr(205) + chr(205) + chr(205)
         board_ui += chr(188) + '\n'
-        print board_ui.replace("0", self.code);
+        print board_ui.replace("0", self.code)
