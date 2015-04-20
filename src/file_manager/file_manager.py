@@ -2,7 +2,6 @@
 # author: Josue Mendoza
 # date: 4-2-2015
 
-from xml.dom.minidom import parseString
 import os
 
 

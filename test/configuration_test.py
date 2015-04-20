@@ -54,7 +54,3 @@ class ConfigurationTest(unittest.TestCase):
         raw_retrieved_xml = configuration_instance.get_xml_as_string().strip("\n").strip("\t").replace("\n", "").replace("\t", "")
 
         self.assertEqual(raw_xml_sample, raw_retrieved_xml)
-
-
-if __name__ == '__main__':
-    unittest.main()

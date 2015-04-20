@@ -37,15 +37,12 @@ class NorvigSolverTest(unittest.TestCase):
         game_solved = norvig_solver.solve(self.GAME_2_BOARD_LIST)
         self.assertEquals(self.GAME_2_SOLUTION_LIST, game_solved)
 
-    def test_norvig_algorithm_returns_false_if_the_game_cannot_be_solved(self):
+    def test_norvig_algorithm_returns_none_if_the_game_cannot_be_solved(self):
         norvig_solver = NorvigSolver()
         game_solved = norvig_solver.solve(self.GAME_3_BOARD_LIST)
-        self.assertFalse(game_solved)
+        self.assertIsNone(game_solved)
 
     def test_just_one_instance_of_norvig_solver_can_be_created(self):
         norvig_solver_instance_a = NorvigSolver()
         norvig_solver_instance_b = NorvigSolver()
         self.assertEqual(norvig_solver_instance_a, norvig_solver_instance_b)
-
-if __name__ == '__main__':
-    unittest.main()

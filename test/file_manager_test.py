@@ -105,7 +105,3 @@ class FileManagerTest(unittest.TestCase):
             self.assertFalse(file_instance.file_exists())
         else:
             self.fail('problems validating existence of a file')
-
-
-if __name__ == '__main__':
-    unittest.main()

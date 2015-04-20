@@ -28,12 +28,13 @@ class NorvigSolver(object):
                         for square in self.squares)
 
     def cross(self, list_A, list_B):
-        """Cross product of elements in A and elements in B.
+        """Returns a combination (Cross) product of elements in list_A and elements in
+        list_B (i.e. ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'A9', 'B1', ...])
         Keyword arguments:
-        list_A -- list with elements to be combined
-        list_B -- list with elements to be combined
+        list_A -- list with elements to be combined (i.e. list_A:  ABCDEFGHI)
+        list_B -- list with elements to be combined (i.e. list_B:  123456789)
         """
-        return [a+b for a in list_A for b in list_B]
+        return [a + b for a in list_A for b in list_B]
 
     def parse_grid(self, grid):
         """Converts grid to a dictionary of possible values, {square: digits}, or
@@ -55,7 +56,8 @@ class NorvigSolver(object):
         Keyword arguments:
         grid -- it is a list containing the grid values, it will have a zero ('0') for
         non-set values (i.e. ['0', '0', '3', '0', '2', '0', '6', '0', '0', '9',...)"""
-        assert len(grid) == 81
+        if len(grid) != 81:
+            raise Exception('Invalid grid size: ' + len(grid) == 81)
         grid_values_dict = self.order_dictionary(dict(zip(self.squares, grid)))
         return grid_values_dict
 
@@ -67,7 +69,8 @@ class NorvigSolver(object):
         return ordered_dict
 
     def assign(self, values, square, digit):
-        """Eliminates all the other values (except digit) from values[square] and propagate.
+        """Assign the correct value to squares by eliminating all the other values
+        (except digit) from values[square] and propagate.
         Returns values, except return False if a contradiction is detected.
         Keyword arguments:
         values -- dictionary containing the game values (i.e. {'I6': '7', 'H9': '9',...)
@@ -118,7 +121,7 @@ class NorvigSolver(object):
         if self.search(self.parse_grid(grid)):
             return self.search(self.parse_grid(grid)).values()
         else:
-            return False
+            return None
 
     def search(self, values):
         """Using depth-first search and propagation, try all possible values.
@@ -130,16 +133,3 @@ class NorvigSolver(object):
             return False ## Failed earlier
         if all(len(values[square]) == 1 for square in self.squares):
             return self.order_dictionary(values) ## Solved!
-        n, square = min((len(values[square]), square) for square in self.squares if len(values[square]) > 1)
-        return self.some(self.search(self.assign(values.copy(), square, digit))
-                    for digit in values[square])
-
-    def some(self, sequence):
-        """Returns an element of sequence that is True.
-        Keyword arguments:
-        sequence -- it is an OrderedDict object containing a sequence"""
-        print "Sec: ", type(sequence)
-        for element in sequence:
-            if element:
-                return element
-        return False
