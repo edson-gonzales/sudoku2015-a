@@ -16,6 +16,9 @@ class Board(object):
         self.resolved = []
 
     def get_resolved_game(self):
+        """Using a board of this object is generated a resolved game in 'resolved' variable
+        to compare with user game.
+        """
         for x in xrange(81):
             self.resolved.append(self.board[x])
         for x in self.hints:
@@ -40,41 +43,47 @@ class Board(object):
         """
         spaces = '      '
         title = '\n' + spaces
-        title += chr(219)+chr(219)+chr(219)+chr(219)+chr(219)+chr(219)+chr(219)+chr(187)+chr(219)+chr(219)+chr(187)
-        title += chr(32)+chr(32)+chr(32)+chr(219)+chr(219)+chr(187)+chr(219)+chr(219)+chr(219)+chr(219)+chr(219)
-        title += chr(219)+chr(187)+chr(32)+chr(32)+chr(219)+chr(219)+chr(219)+chr(219)+chr(219)+chr(219)+chr(187)
-        title += chr(32)+chr(219)+chr(219)+chr(187)+chr(32)+chr(32)+chr(219)+chr(219)+chr(187)+chr(219)+chr(219)
-        title += chr(187)+chr(32)+chr(32)+chr(32)+chr(219)+chr(219)+chr(187)+'\n'
+        title += chr(219) + chr(219) + chr(219) + chr(219) + chr(219) + chr(219) + chr(219) + chr(187) + chr(219)
+        title += chr(219) + chr(187) + chr(32) + chr(32) + chr(32) + chr(219) + chr(219) + chr(187) + chr(219)
+        title += chr(219) + chr(219) + chr(219) + chr(219) + chr(219) + chr(187) + chr(32) + chr(32) + chr(219)
+        title += chr(219) + chr(219) + chr(219) + chr(219) + chr(219) + chr(187) + chr(32) + chr(219) + chr(219)
+        title += chr(187) + chr(32) + chr(32) + chr(219) + chr(219) + chr(187) + chr(219) + chr(219) + chr(187)
+        title += chr(32) + chr(32) + chr(32) + chr(219) + chr(219) + chr(187)+'\n'
         title += spaces
-        title += chr(219)+chr(219)+chr(201)+chr(205)+chr(205)+chr(205)+chr(205)+chr(188)+chr(219)+chr(219)+chr(186)
-        title += chr(32)+chr(32)+chr(32)+chr(219)+chr(219)+chr(186)+chr(219)+chr(219)+chr(201)+chr(205)+chr(205)
-        title += chr(219)+chr(219)+chr(187)+chr(219)+chr(219)+chr(201)+chr(205)+chr(205)+chr(205)+chr(219)+chr(219)
-        title += chr(187)+chr(219)+chr(219)+chr(186)+chr(32)+chr(219)+chr(219)+chr(201)+chr(188)+chr(219)+chr(219)
-        title += chr(186)+chr(32)+chr(32)+chr(32)+chr(219)+chr(219)+chr(186)+'\n'
+        title += chr(219) + chr(219) + chr(201) + chr(205) + chr(205) + chr(205) + chr(205) + chr(188) + chr(219)
+        title += chr(219) + chr(186) + chr(32) + chr(32) + chr(32) + chr(219) + chr(219) + chr(186) + chr(219)
+        title += chr(219) + chr(201) + chr(205) + chr(205) + chr(219) + chr(219) + chr(187) + chr(219) + chr(219)
+        title += chr(201) + chr(205) + chr(205) + chr(205) + chr(219) + chr(219) + chr(187) + chr(219) + chr(219)
+        title += chr(186) + chr(32) + chr(219) + chr(219) + chr(201) + chr(188) + chr(219) + chr(219) + chr(186)
+        title += chr(32) + chr(32) + chr(32) + chr(219) + chr(219) + chr(186)+'\n'
         title += spaces
-        title += chr(219)+chr(219)+chr(219)+chr(219)+chr(219)+chr(219)+chr(219)+chr(187)+chr(219)+chr(219)+chr(186)
-        title += chr(32)+chr(32)+chr(32)+chr(219)+chr(219)+chr(186)+chr(219)+chr(219)+chr(186)+chr(32)+chr(32)
-        title += chr(219)+chr(219)+chr(186)+chr(219)+chr(219)+chr(186)+chr(32)+chr(32)+chr(32)+chr(219)+chr(219)
-        title += chr(186)+chr(219)+chr(219)+chr(219)+chr(219)+chr(219)+chr(201)+chr(188)+chr(32)+chr(219)+chr(219)
-        title += chr(186)+chr(32)+chr(32)+chr(32)+chr(219)+chr(219)+chr(186)+'\n'
+        title += chr(219) + chr(219) + chr(219) + chr(219) + chr(219) + chr(219) + chr(219) + chr(187) + chr(219)
+        title += chr(219) + chr(186) + chr(32) + chr(32) + chr(32) + chr(219) + chr(219) + chr(186) + chr(219)
+        title += chr(219) + chr(186) + chr(32) + chr(32) + chr(219) + chr(219) + chr(186) + chr(219) + chr(219)
+        title += chr(186) + chr(32) + chr(32) + chr(32) + chr(219) + chr(219) + chr(186) + chr(219) + chr(219)
+        title += chr(219) + chr(219) + chr(219) + chr(201) + chr(188) + chr(32) + chr(219) + chr(219) + chr(186)
+        title += chr(32) + chr(32) + chr(32) + chr(219) + chr(219) + chr(186)+'\n'
         title += spaces
-        title += chr(200)+chr(205)+chr(205)+chr(205)+chr(205)+chr(219)+chr(219)+chr(186)+chr(219)+chr(219)+chr(186)
-        title += chr(32)+chr(32)+chr(32)+chr(219)+chr(219)+chr(186)+chr(219)+chr(219)+chr(186)+chr(32)+chr(32)+chr(219)
-        title += chr(219)+chr(186)+chr(219)+chr(219)+chr(186)+chr(32)+chr(32)+chr(32)+chr(219)+chr(219)+chr(186)
-        title += chr(219)+chr(219)+chr(201)+chr(205)+chr(219)+chr(219)+chr(187)+chr(32)+chr(219)+chr(219)+chr(186)
-        title += chr(32)+chr(32)+chr(32)+chr(219)+chr(219)+chr(186)+'\n'
+        title += chr(200) + chr(205) + chr(205) + chr(205) + chr(205) + chr(219) + chr(219) + chr(186) + chr(219)
+        title += chr(219) + chr(186) + chr(32) + chr(32) + chr(32) + chr(219) + chr(219) + chr(186) + chr(219)
+        title += chr(219) + chr(186) + chr(32) + chr(32) + chr(219) + chr(219) + chr(186) + chr(219) + chr(219)
+        title += chr(186) + chr(32) + chr(32) + chr(32) + chr(219) + chr(219) + chr(186) + chr(219) + chr(219)
+        title += chr(201) + chr(205) + chr(219) + chr(219) + chr(187) + chr(32) + chr(219) + chr(219) + chr(186)
+        title += chr(32) + chr(32) + chr(32) + chr(219) + chr(219) + chr(186)+'\n'
         title += spaces
-        title += chr(219)+chr(219)+chr(219)+chr(219)+chr(219)+chr(219)+chr(219)+chr(186)+chr(200)+chr(219)+chr(219)
-        title += chr(219)+chr(219)+chr(219)+chr(219)+chr(201)+chr(188)+chr(219)+chr(219)+chr(219)+chr(219)+chr(219)
-        title += chr(219)+chr(201)+chr(188)+chr(200)+chr(219)+chr(219)+chr(219)+chr(219)+chr(219)+chr(219)+chr(201)
-        title += chr(188)+chr(219)+chr(219)+chr(186)+chr(32)+chr(32)+chr(219)+chr(219)+chr(187)+chr(200)+chr(219)
-        title += chr(219)+chr(219)+chr(219)+chr(219)+chr(219)+chr(201)+chr(188)+'\n'
+        title += chr(219) + chr(219) + chr(219) + chr(219) + chr(219) + chr(219) + chr(219) + chr(186) + chr(200)
+        title += chr(219) + chr(219) + chr(219) + chr(219) + chr(219) + chr(219) + chr(201) + chr(188) + chr(219)
+        title += chr(219) + chr(219) + chr(219) + chr(219) + chr(219) + chr(201) + chr(188) + chr(200) + chr(219)
+        title += chr(219) + chr(219) + chr(219) + chr(219) + chr(219) + chr(201) + chr(188) + chr(219) + chr(219)
+        title += chr(186) + chr(32) + chr(32) + chr(219) + chr(219) + chr(187) + chr(200) + chr(219) + chr(219)
+        title += chr(219) + chr(219) + chr(219) + chr(219) + chr(201) + chr(188)+'\n'
         title += spaces
-        title += chr(200)+chr(205)+chr(205)+chr(205)+chr(205)+chr(205)+chr(205)+chr(188)+chr(32)+chr(200)+chr(205)
-        title += chr(205)+chr(205)+chr(205)+chr(205)+chr(188)+chr(32)+chr(200)+chr(205)+chr(205)+chr(205)+chr(205)
-        title += chr(205)+chr(188)+chr(32)+chr(32)+chr(200)+chr(205)+chr(205)+chr(205)+chr(205)+chr(205)+chr(188)
-        title += chr(32)+chr(200)+chr(205)+chr(188)+chr(32)+chr(32)+chr(200)+chr(205)+chr(188)+chr(32)+chr(200)
-        title += chr(205)+chr(205)+chr(205)+chr(205)+chr(205)+chr(188)+chr(32)+'\n'
+        title += chr(200) + chr(205) + chr(205) + chr(205) + chr(205) + chr(205) + chr(205) + chr(188) + chr(32)
+        title += chr(200) + chr(205) + chr(205) + chr(205) + chr(205) + chr(205) + chr(188) + chr(32) + chr(200)
+        title += chr(205) + chr(205) + chr(205) + chr(205) + chr(205) + chr(188) + chr(32) + chr(32) + chr(200)
+        title += chr(205) + chr(205) + chr(205) + chr(205) + chr(205) + chr(188) + chr(32) + chr(200) + chr(205)
+        title += chr(188) + chr(32) + chr(32) + chr(200) + chr(205) + chr(188) + chr(32) + chr(200) + chr(205)
+        title += chr(205) + chr(205) + chr(205) + chr(205) + chr(188) + chr(32)+'\n'
         print title
 
     def print_top_menu(self):
