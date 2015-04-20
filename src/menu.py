@@ -17,7 +17,7 @@ class Menu(object):
 
     def add_item(self, item):
         """Get array of id,name and function, in order to get action for each
-        item added to current Menu
+        item added to current Menu.
 
         Keyword arguments:
         item -- A Tuple of int, string object eg: (1,'Item of Menu', function, parameter).
