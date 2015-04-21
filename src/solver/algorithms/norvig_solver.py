@@ -45,12 +45,12 @@ class NorvigSolver(object):
         """
         ## To start, every square can be any digit; then assign values from the grid.
         values = dict((square, self.digits) for square in self.squares)
-        for square, digit in self.grid_values(grid).items():
+        for square, digit in self.grid_values_to_dict(grid).items():
             if digit in self.digits and not self.assign(values, square, digit):
                 return False
         return values
 
-    def grid_values(self, grid):
+    def grid_values_to_dict(self, grid):
         """Converts grid into a dict of {square: char} with '0' for empties.
         Returns the dictionary generated (i.e. OrderedDict([('A1', '2'), ('A2', '0')...).
         Keyword arguments:
@@ -104,9 +104,8 @@ class NorvigSolver(object):
             digit_places = [square for square in unit if digit in values[square]]
             if len(digit_places) == 0:
                 return False ## Contradiction: no place for this value
-            elif len(digit_places) == 1:
-                if not self.assign(values, digit_places[0], digit):
-                    return False
+            elif len(digit_places) == 1 and not self.assign(values, digit_places[0], digit):
+                return False
         return values
 
     def solve(self, grid):
