@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<configuration>
+    <level>easy</level>
+    <algorithm>norvigs</algorithm>
+    <file_path_save>D:\</file_path_save>
+    <file_name_save>sudoku.txt</file_name_save>
+</configuration>
