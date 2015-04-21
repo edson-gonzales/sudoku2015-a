@@ -15,15 +15,18 @@ sys.path.append("../src/utils")
 from file_manager_test import FileManagerTest
 from configuration_test import ConfigurationTest
 from norvig_solver_test import NorvigSolverTest
-from menu_test import MenuTest
+from game_test import GameTest
+from board_test import BoardTest
 
 # Load Tests
 file_manager_suite = unittest.TestLoader().loadTestsFromTestCase(FileManagerTest)
 configuration_suite = unittest.TestLoader().loadTestsFromTestCase(ConfigurationTest)
 norvig_solver_suite = unittest.TestLoader().loadTestsFromTestCase(NorvigSolverTest)
-menu_suit = unittest.TestLoader().loadTestsFromTestCase(MenuTest)
+game_suit = unittest.TestLoader().loadTestsFromTestCase(GameTest)
+board_suit = unittest.TestLoader().loadTestsFromTestCase(BoardTest)
+
 # Load Test Suite
-#all_tests = unittest.TestSuite([file_manager_suite, configuration_suite, norvig_solver_suite, menu_suit])
-all_tests = unittest.TestSuite([menu_suit])
+#all_tests = unittest.TestSuite([file_manager_suite, configuration_suite, norvig_solver_suite, game_suit, board_suit])
+all_tests = unittest.TestSuite([game_suit, board_suit])
 # Execute Test Suite
 unittest.TextTestRunner(verbosity=2).run(all_tests)

@@ -6,8 +6,8 @@
 from configuration.configuration import *
 from file_manager.file_manager import *
 from menu import Menu
-#from game import *
-#from board import *
+from game import *
+from board import *
 
 CONFIGURATION_FILE_PATH = 'configuration\\xml_config.xml'
 
@@ -84,7 +84,6 @@ def modify_algorithm_menu():
     menu.add_item((0, 'Exit', None))
     menu.ask()
 
-
 def modify_configuration(config_data):
     """Modifies the configuration based on a tuple retrieved as an argument.
     Modifications are persisted in the configuration xml file.
@@ -152,11 +151,11 @@ def play_game(mode=0):
     if mode == 1:
         sudoku_game = Game(20, 30)
         sudoku_game.generate_game()
-        board = Board(chr(178))
+        board = Board('*')
         board.board = sudoku_game.board
         board.hints = sudoku_game.hints
         board.get_resolved_game()
-    board = Board(chr(178))
+    board = Board('*')
     sudoku_game = Game(20, 30)
 
     if len(board.board) == 81:
