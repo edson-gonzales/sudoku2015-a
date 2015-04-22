@@ -4,10 +4,10 @@
 
 import unittest
 from game import Game
+
+
 class GameTest(unittest.TestCase):
 
-    def test_just_one_instance_of_configuration_can_be_created(self):
-        #self.assertEqual(configuration_instance_a, configuration_instance_b)
-        #self.assertEqual(True, False)
-        pass
-
+    def test_generate_game_create_and_array_of_81_items(self):
+        game = Game()
+        self.assertEqual(81, len(game.generate_game()))
