@@ -173,7 +173,7 @@ def play_game(mode=0):
         missing_numbers = len(board.hints)
         print("Missing numbers: %i \n" % missing_numbers)
         if board.board == board.resolved:
-            print("Congratulations! you did it. Sudoku solved successfully")
+            print("Congratulations! you did it. Sudoku solved successfully\n")
         elif board.board.count(0) == 0:
             print("The solution is not correct, pleas see below in solved game an compare:\n")
             board.print_board(board.resolved)

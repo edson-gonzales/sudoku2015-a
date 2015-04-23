@@ -24,7 +24,7 @@ norvig_solver_suite = unittest.TestLoader().loadTestsFromTestCase(NorvigSolverTe
 game_suit = unittest.TestLoader().loadTestsFromTestCase(GameTest)
 
 # Load Test Suite
-#all_tests = unittest.TestSuite([file_manager_suite, configuration_suite, norvig_solver_suite, game_suit])
+# all_tests = unittest.TestSuite([file_manager_suite, configuration_suite, norvig_solver_suite, game_suit])
 all_tests = unittest.TestSuite([game_suit])
 # Execute Test Suite
 unittest.TextTestRunner(verbosity=2).run(all_tests)
