@@ -13,13 +13,15 @@ class ConfigurationTest(unittest.TestCase):
     TEST_FOLDER = os.getcwd() + '\\test_folder'
     TEST_FILE = TEST_FOLDER + '\\test_file.txt'
 
-    SAMPLE_LEVEL = 'easy'
+    SAMPLE_LEVEL = 'easy:10:20'
+    SAMPLE_BLANK_CHARACTER = '164'
     SAMPLE_ALGORITHM = 'norvigs'
     SAMPLE_FILE_PATH = 'D:\\'
     SAMPLE_FILE_NAME = 'sudoku.txt'
 
     XML_SAMPLE = '<?xml version="1.0" ?><configuration>'\
-        + '<level>' + SAMPLE_LEVEL + '</level>'\
+        + '<level>' + SAMPLE_LEVEL + '</level>' \
+        + '<blank_character>' + SAMPLE_BLANK_CHARACTER + '</blank_character>' \
         + '<algorithm>' + SAMPLE_ALGORITHM + '</algorithm>'\
         + '<file_path_save>' + SAMPLE_FILE_PATH + '</file_path_save>'\
         + '<file_name_save>' + SAMPLE_FILE_NAME + '</file_name_save>'\

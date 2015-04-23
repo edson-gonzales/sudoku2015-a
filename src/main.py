@@ -22,8 +22,17 @@ def display_main_menu():
     menu.clear_items()
     menu.add_item((1, 'Start Game', game_menu, 0))
     menu.add_item((2, 'Game Configuration', display_configuration_menu, 0))
+    menu.add_item((3, 'Import Game', display_import_menu, 0))
     menu.add_item((0, 'Exit', None))
     menu.ask()
+
+##################################################################################################
+##################################################################################################
+##################################################################################################
+##################################################################################################
+
+
+CONFIGURATION_FILE_PATH = 'configuration\\xml_config.xml'
 
 
 def display_configuration_menu():
@@ -36,8 +45,9 @@ def display_configuration_menu():
     menu.text = get_formatted_configuration()
     menu.clear_items()
     menu.add_item((1, 'Modify Level', modify_level_menu, 0))
-    menu.add_item((2, 'Modify Algorithm', modify_algorithm_menu, 0))
-    menu.add_item((3, 'Back', display_main_menu, 0))
+    menu.add_item((2, 'Modify Blank Character', modify_blank_character_menu, 0))
+    menu.add_item((3, 'Modify Algorithm', modify_algorithm_menu, 0))
+    menu.add_item((4, 'Back', display_main_menu, 0))
     menu.add_item((0, 'Exit', None))
     menu.ask()
 
@@ -48,8 +58,12 @@ def get_formatted_configuration():
     """
     config_file = File(CONFIGURATION_FILE_PATH)
     configuration = Configuration(config_file.read_content())
+    level_list = configuration.level.split(':')
     config_txt = '    Configuration:\n    ==============\n' + \
-                 '    Level: ' + configuration.level + '\n' + \
+                 '    Level: ' + level_list[0] + \
+                 '    (Min: ' + level_list[1] + \
+                 '    Max: ' + level_list[2] + ')\n' + \
+                 '    Blank Character: ' + chr(int(configuration.blank_character)) + '\n' + \
                  '    Algorithm: ' + configuration.algorithm
     return config_txt
 
@@ -61,13 +75,63 @@ def modify_level_menu():
     menu = Menu('Sudoku Solver - Configuration')
     menu.text = 'Select the new level for the game:'
     menu.clear_items()
-    menu.add_item((1, 'Easy', modify_configuration, ('level', 'Easy')))
-    menu.add_item((2, 'Medium', modify_configuration, ('level', 'Medium')))
-    menu.add_item((3, 'Hard', modify_configuration, ('level', 'Hard')))
-    menu.add_item((4, 'Custom', modify_configuration, ('level', 'Custom')))
-    menu.add_item((5, 'Back', display_main_menu, 0))
+    menu.add_item((1, 'Easy', modify_configuration, ('level', 'Easy:10:20')))
+    menu.add_item((2, 'Medium', modify_configuration, ('level', 'Medium:30:40')))
+    menu.add_item((3, 'Hard', modify_configuration, ('level', 'Hard:40:50')))
+    menu.add_item((4, 'Custom', modify_custom_level_menu, 0))
+    menu.add_item((5, 'Back', display_configuration_menu, 0))
     menu.add_item((0, 'Exit', None))
     menu.ask()
+
+def modify_custom_level_menu():
+    menu = Menu('Sudoku Solver - Configuration')
+    menu.text = 'Select the new level for the game:'
+    menu.clear_items()
+    try:
+        min = int(input("Please enter the minimum XXX: "))
+        max = int(input("Please enter the maximum XXX: "))
+        custom_level_string = 'Custom:' + str(min) + ':' + str(max)
+        modify_configuration(('level', custom_level_string))
+    except Exception:
+        print "Invalid values entered"
+    modify_level_menu()
+
+
+def display_import_menu():
+    menu = Menu('Sudoku Solver - Configuration')
+    menu.text = 'Select the new level for the game:'
+    menu.clear_items()
+    # menu.add_item((1, 'Import from CSV File', import_from_csv_file, 0))
+    # menu.add_item((2, 'Import from TXT File', import_from_txt_file, 0))
+    # menu.add_item((3, 'Import from Input', import_from_input, 0))
+    menu.add_item((4, 'Back', display_main_menu, 0))
+    menu.add_item((0, 'Exit', None))
+    menu.ask()
+
+
+def modify_blank_character_menu():
+    menu = Menu('Sudoku Solver - Configuration')
+    menu.text = 'Select the new level for the game:'
+    menu.clear_items()
+    blank_char = str(raw_input('Enter an ASCII character that will be used as separator: '))
+    if validate_blank_char(blank_char):
+        try:
+            modify_configuration(('blank_character', ord(blank_char)))
+        except Exception:
+            print "Invalid Separator"
+    display_configuration_menu()
+
+
+def validate_blank_char(blank_char):
+    result = True
+    not_allowed_chars = [',', '<', '>', '"', '\'']
+    for char in not_allowed_chars:
+        if char == blank_char:
+            result = False
+    return result
+
+
+
 
 
 def modify_algorithm_menu():
@@ -99,31 +163,10 @@ def modify_configuration(config_data):
     config_file.write_content(configuration.get_xml_as_string())
     display_configuration_menu()
 
-
-def print_config_file():
-    """This function displays the XML information about current configuration.
-    It will call display_config_menu function after press any key.
-    """
-    os.system('cls')
-    print ('Print Configuration file\n\n')
-    file_obj = File('configuration/xml_config.xml')
-    config = Configuration(file_obj.read_content())
-    print (config.get_xml_as_string())
-    raw_input('\n\nPress any key: ')
-    display_configuration_menu()
-
-
-def print_level_file():
-    """This function displays the value of level game that is getting from XML configuration.
-    It will call display_config_menu function after press any key.
-    """
-    os.system('cls')
-    print ('Print Level of Configuration file\n\n')
-    file_obj = File('configuration/xml_config.xml')
-    config = Configuration(file_obj.read_content())
-    print (config.level)
-    raw_input('\n\nPress any key: ')
-    display_configuration_menu()
+##################################################################################################
+##################################################################################################
+##################################################################################################
+##################################################################################################
 
 
 def game_menu():
