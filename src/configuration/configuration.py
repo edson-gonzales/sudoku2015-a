@@ -4,7 +4,7 @@
 
 from xml.dom.minidom import *
 from file_manager import File
-from singleton import Singleton
+from utils.singleton import Singleton
 
 
 class Configuration(object):
