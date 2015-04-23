@@ -2,8 +2,8 @@
 # author: Daniel Jauergui
 # date: 3-31-2015
 
-from utils.menu_config import *
-from utils.menu_game import *
+from ui.menus.menu_config import *
+from ui.menus.menu_game import *
 from menu import Menu
 
 
