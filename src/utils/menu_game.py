@@ -2,13 +2,13 @@
 # author: Daniel Jauergui
 # date: 4-23-2015
 
-from main import display_main_menu
-from menu import Menu
+import os
 from game import *
 from board import *
+from menu import Menu
 
 
-def game_menu():
+def display_game_menu(display_main_menu):
     """Sub Menu of Main menu that provide option for user in order to manage the geme.
     It will call display_config_menu function after press any key.
     Define a menu object that is provided with Title, Description and
@@ -18,9 +18,9 @@ def game_menu():
     menu.clear_items()
     menu.add_item((1, 'Start/Continue Game', play_game, 0))
     menu.add_item((2, 'New Game', play_game, 1))
-    menu.add_item((3, 'Import Game', game_menu, 0))
-    menu.add_item((4, 'Export Game', game_menu, 0))
-    menu.add_item((5, 'Back', display_main_menu, 0))
+    menu.add_item((3, 'Import Game', display_game_menu, 0))
+    menu.add_item((4, 'Export Game', display_game_menu, 0))
+    menu.add_item((5, 'Back', display_main_menu , 0))
     menu.add_item((0, 'Exit', None))
     menu.ask()
 
@@ -67,7 +67,7 @@ def play_game(mode=0):
         elif option.upper() == 'E':
             break
         elif option.upper() == 'B':
-            game_menu()
+            display_game_menu()
             break
         elif option.upper() == 'H':
             board.set_hint()

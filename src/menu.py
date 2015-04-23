@@ -35,7 +35,7 @@ class Menu(object):
         """
         os.system("cls")
         print(self.name)
-        line = " "
+        line = ""
         for x in range(0, len(self.name)):
             line += "="
         print(line + "\n")

@@ -2,14 +2,14 @@
 # author: Daniel Jauergui
 # date: 4-23-2015
 
-from main import display_main_menu
-from menu import Menu
 from configuration.configuration import *
 from file_manager.file_manager import *
+from menu import Menu
+
 
 CONFIGURATION_FILE_PATH = 'configuration\\xml_config.xml'
 
-def display_configuration_menu():
+def display_configuration_menu(display_main_menu):
     """Sub menu of Main,this function provide to user options to manage the configuration of application
     in order to support changes and persistent configuration.
     Define a menu object that is provided with Title, Description and
@@ -18,8 +18,8 @@ def display_configuration_menu():
     menu = Menu('Sudoku Solver - Configuration')
     menu.text = get_formatted_configuration()
     menu.clear_items()
-    menu.add_item((1, 'Modify Level', modify_level_menu, 0))
-    menu.add_item((2, 'Modify Algorithm', modify_algorithm_menu, 0))
+    menu.add_item((1, 'Modify Level', modify_level_menu, display_main_menu))
+    menu.add_item((2, 'Modify Algorithm', modify_algorithm_menu, display_main_menu))
     menu.add_item((3, 'Back', display_main_menu, 0))
     menu.add_item((0, 'Exit', None))
     menu.ask()
@@ -37,7 +37,7 @@ def get_formatted_configuration():
     return config_txt
 
 
-def modify_level_menu():
+def modify_level_menu(display_main_menu):
     """Displays the corresponding menu for modifying the level in the
     configuration.
     """
@@ -53,7 +53,7 @@ def modify_level_menu():
     menu.ask()
 
 
-def modify_algorithm_menu():
+def modify_algorithm_menu(display_main_menu):
     """Displays the corresponding menu for modifying the algorithm in the
     configuration.
     """
