@@ -108,7 +108,7 @@ class Game(object):
 
     def set_level(self, board):
         """Define the level of game according threshold defined in configuration file, set 0s to be guess
-        and hitns array
+        and hints array
         """
         level = random.randint(self.min_threshold, self.max_threshold)
         init_level = 0
