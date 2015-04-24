@@ -84,12 +84,15 @@ def modify_level_menu():
     menu.ask()
 
 def modify_custom_level_menu():
+    """Displays the corresponding menu for modifying the custom level in the
+    configuration.
+    """
     menu = Menu('Sudoku Solver - Configuration')
     menu.text = 'Select the new level for the game:'
     menu.clear_items()
     try:
-        min = int(input("Please enter the minimum XXX: "))
-        max = int(input("Please enter the maximum XXX: "))
+        min = int(input("Please enter the minimum number of blank spaces: "))
+        max = int(input("Please enter the maximum number of blank spaces: "))
         custom_level_string = 'Custom:' + str(min) + ':' + str(max)
         modify_configuration(('level', custom_level_string))
     except Exception:
@@ -98,6 +101,8 @@ def modify_custom_level_menu():
 
 
 def display_import_menu():
+    """Displays the corresponding menu for the import section.
+    """
     menu = Menu('Sudoku Solver - Configuration')
     menu.text = 'Select the new level for the game:'
     menu.clear_items()
@@ -110,6 +115,9 @@ def display_import_menu():
 
 
 def modify_blank_character_menu():
+    """Displays the corresponding menu for modifying the custom blank character in the
+    configuration.
+    """
     menu = Menu('Sudoku Solver - Configuration')
     menu.text = 'Select the new level for the game:'
     menu.clear_items()
@@ -123,15 +131,15 @@ def modify_blank_character_menu():
 
 
 def validate_blank_char(blank_char):
+    """Returns True if the blank character is entered as parameter is not a forbidden one.
+    blank_char -- a string containing the custom blank character to be saved by another method.
+    """
     result = True
-    not_allowed_chars = [',', '<', '>', '"', '\'']
+    not_allowed_chars = [',', '<', '>', '"', '\'', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
     for char in not_allowed_chars:
         if char == blank_char:
             result = False
     return result
-
-
-
 
 
 def modify_algorithm_menu():
@@ -162,6 +170,8 @@ def modify_configuration(config_data):
     setattr(configuration, setting, new_value)
     config_file.write_content(configuration.get_xml_as_string())
     display_configuration_menu()
+
+
 
 ##################################################################################################
 ##################################################################################################
