@@ -11,15 +11,17 @@ from file_manager import File
 
 class ConfigurationTest(unittest.TestCase):
     TEST_FOLDER = os.getcwd() + '\\test_folder'
-    TEST_FILE = TEST_FOLDER + '\\test_file.txt'
+    TEST_CONFIG_FILE = TEST_FOLDER + '\\test_config_file.xml'
 
-    SAMPLE_LEVEL = 'easy'
+    SAMPLE_LEVEL = 'Custom:10:20'
+    SAMPLE_BLANK_CHARACTER = '42'
     SAMPLE_ALGORITHM = 'norvigs'
     SAMPLE_FILE_PATH = 'D:\\'
     SAMPLE_FILE_NAME = 'sudoku.txt'
 
     XML_SAMPLE = '<?xml version="1.0" ?><configuration>'\
-        + '<level>' + SAMPLE_LEVEL + '</level>'\
+        + '<level>' + SAMPLE_LEVEL + '</level>' \
+        + '<blank_character>' + SAMPLE_BLANK_CHARACTER + '</blank_character>' \
         + '<algorithm>' + SAMPLE_ALGORITHM + '</algorithm>'\
         + '<file_path_save>' + SAMPLE_FILE_PATH + '</file_path_save>'\
         + '<file_name_save>' + SAMPLE_FILE_NAME + '</file_name_save>'\
@@ -29,7 +31,7 @@ class ConfigurationTest(unittest.TestCase):
         os.makedirs(TEST_FOLDER)
 
     def test_just_one_instance_of_configuration_can_be_created(self):
-        file_instance = File(self.TEST_FILE)
+        file_instance = File(self.TEST_CONFIG_FILE)
         file_instance.write_content(self.XML_SAMPLE)
         configuration_instance_a = Configuration(file_instance.read_content())
         configuration_instance_b = Configuration(file_instance.read_content())
@@ -37,7 +39,7 @@ class ConfigurationTest(unittest.TestCase):
         file_instance.delete()
 
     def test_configuration_instances_have_correct_values_in_attributes(self):
-        file_instance = File(self.TEST_FILE)
+        file_instance = File(self.TEST_CONFIG_FILE)
         file_instance.write_content(self.XML_SAMPLE)
         configuration_instance = Configuration(file_instance.read_content())
         self.assertEqual(self.SAMPLE_LEVEL, configuration_instance.level)
@@ -46,7 +48,7 @@ class ConfigurationTest(unittest.TestCase):
         self.assertEqual(self.SAMPLE_FILE_NAME, configuration_instance.file_name_save)
 
     def test_configuration_can_be_retrieved_as_xml(self):
-        file_instance = File(self.TEST_FILE)
+        file_instance = File(self.TEST_CONFIG_FILE)
         file_instance.write_content(self.XML_SAMPLE)
         configuration_instance = Configuration(file_instance.read_content())
 
