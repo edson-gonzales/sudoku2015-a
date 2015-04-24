@@ -3,7 +3,7 @@
 # date: 4-12-2015
 
 import collections
-from singleton import Singleton
+from utils.singleton import Singleton
 
 
 class NorvigSolver(object):
