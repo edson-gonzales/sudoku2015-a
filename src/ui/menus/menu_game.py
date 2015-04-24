@@ -12,7 +12,9 @@ from solver.algorithms.norvig_solver import NorvigSolver
 # from solver.algorithms.backtraking_solver import Backtraking
 # from solver.algorithms.bruteforce_solver import Bruteforce
 
-CONFIGURATION_FILE_PATH = 'e:\\Trabajo\\Automation\\DevFundamentals\\SudokuSolver\\src\\configuration\\xml_config.xml'
+PATH = os.path.dirname(os.path.abspath(__file__))
+
+CONFIGURATION_FILE_PATH = PATH + '..\\..\\..\\configuration\\xml_config.xml'
 
 
 def display_game_menu(display_main_menu):
@@ -38,24 +40,14 @@ def play_game(mode=0):
     Keyword arguments:
     mode -- Define if game should be generated again or continue with previous status, values (0=ContinueGame,1=NewGame)
     """
-    if mode == 1:
-        sudoku_game = Game(get_level_configuration())
-        sudoku_game.generate_game()
-        board = Board(chr(get_blank_character()))
-        board.board = sudoku_game.board
-        board.hints = sudoku_game.hints
-        board.get_resolved_game()
-    board = Board(chr(get_blank_character()))
     sudoku_game = Game(get_level_configuration())
-
-    if len(board.board) == 81:
-        sudoku_game.board = board.board
-        sudoku_game.hints = board.hints
-    else:
+    board = Board(chr(get_blank_character()))
+    if mode == 1 or len(board.board) < 81:
         sudoku_game.generate_game()
         board.board = sudoku_game.board
         board.hints = sudoku_game.hints
         board.get_resolved_game()
+
     option = None
     while option != 'E':
         os.system('cls')
@@ -83,6 +75,7 @@ def play_game(mode=0):
         elif option.upper() == 'H':
             board.set_hint()
         else:
+
             raw_input("Implement movement, please press enter to continue...")
 
 

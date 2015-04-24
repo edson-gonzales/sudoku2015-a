@@ -3,9 +3,11 @@
 # date: 4-23-2015
 
 import random
-
+from utils.singleton import Singleton
 
 class Game(object):
+
+    __metaclass__ = Singleton
 
     def __init__(self, min_threshold=20, max_threshold=30):
         """ Verify the conditions for min_threshold and max_threshold are applied"""
@@ -17,6 +19,7 @@ class Game(object):
             self.max_threshold = 30
         self.hints = []
         self.board = []
+        self.grid = None
         self.grid = [[0 for x in range(9)] for x in range(9)]
         self.first_param_in_axis_x = 0
         self.first_param_in_axis_y = 0
@@ -29,7 +32,7 @@ class Game(object):
 
         return -- the game in Array e.g.: [4, 9, 3, 0, 5, ...., 8, 8, 0, 0, 1]
         """
-        self.board = []
+        self.__init__()
         self.write_sudoku_base()
         self.start_shuffle(10)
         self.change_format_grid_to_array()
