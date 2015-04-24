@@ -6,8 +6,8 @@ from configuration.configuration import *
 from file_manager.file_manager import *
 from menu import Menu
 
-
 CONFIGURATION_FILE_PATH = 'configuration\\xml_config.xml'
+
 
 def display_configuration_menu(display_main_menu):
     """Sub menu of Main,this function provide to user options to manage the configuration of application
