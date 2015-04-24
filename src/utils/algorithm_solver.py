@@ -10,7 +10,9 @@ class AlgorithmSolver(object):
 
     def solve(self, board):
         board = [str(numeric_string) for numeric_string in board]
-        self.algorithm.solve(board)
+        board = self.algorithm.solve(board)
+        board = [int(numeric_string) for numeric_string in board]
+        return board
 
     def print_result(self, board):
         self.algorithm.print_result(board)

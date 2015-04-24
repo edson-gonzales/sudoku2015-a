@@ -47,7 +47,6 @@ def play_game(mode=0):
         board.board = sudoku_game.board
         board.hints = sudoku_game.hints
         board.get_resolved_game()
-
     option = None
     while option != 'E':
         os.system('cls')
@@ -69,13 +68,10 @@ def play_game(mode=0):
             display_game_menu()
             break
         elif option.upper() == 'R':
-            x = call_algorithm_to_solve(board.board)
-            print(x)
-            raw_input("...")
+            board.board = call_algorithm_to_solve(board.board)
         elif option.upper() == 'H':
             board.set_hint()
         else:
-
             raw_input("Implement movement, please press enter to continue...")
 
 
