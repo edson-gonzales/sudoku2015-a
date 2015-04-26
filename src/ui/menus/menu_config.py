@@ -20,7 +20,7 @@ def display_configuration_menu(display_main_menu):
     menu.clear_items()
     menu.add_item((1, 'Modify Level', modify_level_menu, display_main_menu))
     menu.add_item((2, 'Modify Algorithm', modify_algorithm_menu, display_main_menu))
-    menu.add_item((3, 'Back', display_main_menu, 0))
+    menu.add_item((9, 'Back', display_main_menu, 0))
     menu.add_item((0, 'Exit', None))
     menu.ask()
 
@@ -48,7 +48,7 @@ def modify_level_menu(display_main_menu):
     menu.add_item((2, 'Medium', modify_configuration, ('level', 'Medium')))
     menu.add_item((3, 'Hard', modify_configuration, ('level', 'Hard')))
     menu.add_item((4, 'Custom', modify_configuration, ('level', 'Custom')))
-    menu.add_item((5, 'Back', display_main_menu, 0))
+    menu.add_item((9, 'Back', display_main_menu, 0))
     menu.add_item((0, 'Exit', None))
     menu.ask()
 
@@ -63,7 +63,7 @@ def modify_algorithm_menu(display_main_menu):
     menu.add_item((1, 'Norvig', modify_configuration, ('algorithm', 'Norvig')))
     menu.add_item((2, 'BackTrack', modify_configuration, ('algorithm', 'BackTrack')))
     menu.add_item((3, 'BruteForce', modify_configuration, ('algorithm', 'BruteForce')))
-    menu.add_item((4, 'Back', display_main_menu, 0))
+    menu.add_item((9, 'Back', display_main_menu, 0))
     menu.add_item((0, 'Exit', None))
     menu.ask()
 
