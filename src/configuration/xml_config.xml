@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <configuration>
-    <level>Medium:30:40</level>
+    <level>Custom:10:81</level>
     <blank_character>42</blank_character>
     <algorithm>NorvigSolver</algorithm>
     <file_path_save>D:\</file_path_save>

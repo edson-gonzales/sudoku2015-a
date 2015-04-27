@@ -12,11 +12,13 @@ def display_main_menu():
     define a menu object that is provided with Title, Description and
     items, it calls an ask function in order to get an option selected by user.
     """
+    menu_game = MenuGame()
+    menu_config = MenuConfig()
     menu = Menu('Sudoku Solver')
     menu.text = "Sudoku is a puzzle game designed for\na single player, much like a crossword puzzle."
     menu.clear_items()
-    menu.add_item((1, 'Start Game', display_game_menu, display_main_menu))
-    menu.add_item((2, 'Game Configuration', display_configuration_menu, display_main_menu))
+    menu.add_item((1, 'Start Game', menu_game.display_game_menu, display_main_menu))
+    menu.add_item((2, 'Game Configuration', menu_config.display_configuration_menu, display_main_menu))
     menu.add_item((0, 'Exit', None))
     menu.ask()
 
