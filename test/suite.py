@@ -1,4 +1,4 @@
-# configuration_manager.py
+# suite.py
 # author: Josue Mendoza
 # date: 4-7-2015
 
@@ -15,19 +15,31 @@ sys.path.append("../src/utils")
 from file_manager_test import FileManagerTest
 from configuration_test import ConfigurationTest
 from norvig_solver_test import NorvigSolverTest
+<<<<<<< HEAD
 from import_export_test import ImportExportTest
+=======
+from data_converter_test import DataConverterTest
+>>>>>>> master
 from game_test import GameTest
 
 # Load Tests
 file_manager_suite = unittest.TestLoader().loadTestsFromTestCase(FileManagerTest)
 configuration_suite = unittest.TestLoader().loadTestsFromTestCase(ConfigurationTest)
 norvig_solver_suite = unittest.TestLoader().loadTestsFromTestCase(NorvigSolverTest)
+<<<<<<< HEAD
 import_export_suite = unittest.TestLoader().loadTestsFromTestCase(ImportExportTest)
+=======
+data_converter_suite = unittest.TestLoader().loadTestsFromTestCase(DataConverterTest)
+>>>>>>> master
 game_suit = unittest.TestLoader().loadTestsFromTestCase(GameTest)
 
 # Load Test Suite
 all_tests = unittest.TestSuite([file_manager_suite, configuration_suite, norvig_solver_suite,
+<<<<<<< HEAD
                                 import_export_suite, game_suit])
+=======
+                                data_converter_suite, game_suit])
+>>>>>>> master
 # all_tests = unittest.TestSuite([game_suit])
 # Execute Test Suite
 unittest.TextTestRunner(verbosity=2).run(all_tests)
