@@ -13,6 +13,7 @@ class File(object):
     instance. (i.e. C:\sudoku\files\file_1.txt)
     """
 
+
     def __init__(self, file_path):
         self.file_path = file_path
 

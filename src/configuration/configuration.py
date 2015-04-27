@@ -5,9 +5,10 @@
 from xml.dom.minidom import *
 from utils.singleton import Singleton
 
+CONFIGURATION_FILE_PATH = 'configuration\\xml_config.xml'
 
 class Configuration(object):
-    """Configuration instance objects have attributes containing the
+    """Configuration instance object has attributes containing the
     configuration values and the raw xml as string.
     Attributes are:
     __raw_xml_configuration: a string containing the complete configuration xml
@@ -16,8 +17,8 @@ class Configuration(object):
     applicable. (i.e. peter_norvig)
     file_path_save: a string containing the default file path where games will
     be saved. (i.e. C:\sudoku\files\)
-    file_name_save: a string containing the default file name for the games to
-    be saved. (i.e. game_1_4_2015)
+    custom_level_defaults: a string containing the default value for the default
+    custom level. (i.e. 'Custom:15:40')
     """
     __metaclass__ = Singleton
 
@@ -26,7 +27,7 @@ class Configuration(object):
     BLANK_CHARACTER_NAME = 'blank_character'
     ALGORITHM_NAME = 'algorithm'
     FILE_PATH_SAVE_NAME = 'file_path_save'
-    FILE_NAME_SAVE_NAME = 'file_name_save'
+    CUSTOM_LEVEL_DEFAULTS_NAME = 'custom_level_defaults'
 
     def __init__(self, xml_content=None):
         self.__raw_xml_configuration = xml_content
@@ -34,7 +35,7 @@ class Configuration(object):
         self.blank_character = self.get_value_from_raw_xml(self.BLANK_CHARACTER_NAME)
         self.algorithm = self.get_value_from_raw_xml(self.ALGORITHM_NAME)
         self.file_path_save = self.get_value_from_raw_xml(self.FILE_PATH_SAVE_NAME)
-        self.file_name_save = self.get_value_from_raw_xml(self.FILE_NAME_SAVE_NAME)
+        self.custom_level_defaults = self.get_value_from_raw_xml(self.CUSTOM_LEVEL_DEFAULTS_NAME)
 
     def get_value_from_raw_xml(self, xml_key):
         """Returns a value from a XML string based on the key sent as argument.
@@ -58,19 +59,19 @@ class Configuration(object):
         blank_character = doc.createElement(self.BLANK_CHARACTER_NAME)
         algorithm = doc.createElement(self.ALGORITHM_NAME)
         file_path_save = doc.createElement(self.FILE_PATH_SAVE_NAME)
-        file_name_save = doc.createElement(self.FILE_NAME_SAVE_NAME)
+        custom_level_defaults = doc.createElement(self.CUSTOM_LEVEL_DEFAULTS_NAME)
 
         level.appendChild(doc.createTextNode(self.level))
         blank_character.appendChild(doc.createTextNode(self.blank_character))
         algorithm.appendChild(doc.createTextNode(self.algorithm))
         file_path_save.appendChild(doc.createTextNode(self.file_path_save))
-        file_name_save.appendChild(doc.createTextNode(self.file_name_save))
+        custom_level_defaults.appendChild(doc.createTextNode(self.custom_level_defaults))
 
         doc.appendChild(config)
         config.appendChild(level)
         config.appendChild(blank_character)
         config.appendChild(algorithm)
         config.appendChild(file_path_save)
-        config.appendChild(file_name_save)
+        config.appendChild(custom_level_defaults)
 
         return doc.toprettyxml()

@@ -3,6 +3,7 @@
 # date: 3-31-2015
 
 from ui.menus.menu_config import *
+from ui.menus.menu_import import *
 from ui.menus.menu_game import *
 from menu import Menu
 
@@ -15,8 +16,9 @@ def display_main_menu():
     menu = Menu('Sudoku Solver')
     menu.text = "Sudoku is a puzzle game designed for\na single player, much like a crossword puzzle."
     menu.clear_items()
-    menu.add_item((1, 'Start Game', display_game_menu, display_main_menu))
-    menu.add_item((2, 'Game Configuration', display_configuration_menu, display_main_menu))
+    menu.add_item((1, 'New Game', display_game_menu, display_main_menu))
+    menu.add_item((2, 'Import game', display_import_menu, display_main_menu))
+    menu.add_item((3, 'Game Configuration', display_configuration_menu, display_main_menu))
     menu.add_item((0, 'Exit', None))
     menu.ask()
 
