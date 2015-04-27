@@ -19,13 +19,13 @@ class NorvigSolver(object):
         self.cols = self.digits
         self.squares = self.cross(self.rows, self.cols)
         self.unit_list = ([self.cross(self.rows, col) for col in self.cols] +
-                        [self.cross(row, self.cols) for row in self.rows] +
-                        [self.cross(row_square, col_square) for row_square in ('ABC','DEF','GHI')
-                        for col_square in ('123','456','789')])
+                          [self.cross(row, self.cols) for row in self.rows] +
+                          [self.cross(row_square, col_square) for row_square in ('ABC','DEF','GHI')
+                           for col_square in ('123','456','789')])
         self.units = dict((square, [unit for unit in self.unit_list if square in unit])
-                        for square in self.squares)
+                          for square in self.squares)
         self.peers = dict((square, set(sum(self.units[square],[]))-set([square]))
-                        for square in self.squares)
+                          for square in self.squares)
 
     def cross(self, list_A, list_B):
         """Returns a combination (Cross) product of elements in list_A and elements in
