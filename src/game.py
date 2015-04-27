@@ -39,6 +39,11 @@ class Game(object):
         self.set_level(self.board)
         return self.board
 
+    def import_game(self, board):
+        """import a game that follow the sudoku rules
+        """
+        self.board = board
+
     def write_sudoku_base(self):
         """This method fill in global grid variable the base of sudoku game,
         this base is a sudoku solved in order.
