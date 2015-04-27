@@ -4,7 +4,6 @@
 
 import os
 
-
 class File(object):
     """File instance objects have as the only attribute the file path of a file.
 

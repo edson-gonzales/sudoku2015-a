@@ -35,7 +35,7 @@ class Menu(object):
         """
         os.system("cls")
         print(self.name)
-        line = " "
+        line = ""
         for x in range(0, len(self.name)):
             line += "="
         print(line + "\n")
@@ -56,7 +56,11 @@ class Menu(object):
                 val = int(option)
             except:
                 option = 999
-            if 1 <= option <= len(self.items)-1:
+            nice_exist = 1
+            item = self.items[len(self.items)-2]
+            if 9 == item[0]:
+                nice_exist = 2
+            if 1 <= option <= len(self.items)-nice_exist or option == 9 and nice_exist == 2:
                 break
         if option != 0:
             self.click_item(option)
