@@ -40,7 +40,7 @@ class MenuGame(object):
         menu.add_item((0, 'Exit', None))
         menu.ask()
 
-    def export_game_in_txt_format(self,display_main_menu):
+    def export_game_in_txt_format(self, display_main_menu):
         default_type = 'txt'
         file_to_export = self.save_file_dialog(default_type)
         data_converter = DataConverter()
@@ -64,7 +64,6 @@ class MenuGame(object):
         file_to_export = File(file_path)
         return file_to_export
 
-
     def play_game(self, mode):
         """This function provide to the user a game interface with menus, board and input request.
 
@@ -72,6 +71,7 @@ class MenuGame(object):
         mode -- Define if game should be generated again or continue with previous status,
         values (0=ContinueGame,1=NewGame)
         """
+        self.verify_import_board(mode[0])
         game_resources = GameResources()
         sudoku_game = Game(game_resources.get_level_configuration())
         board = Board(chr(game_resources.get_blank_character()))
@@ -94,6 +94,32 @@ class MenuGame(object):
             except:
                 break
 
+    def verify_import_board(self, mode):
+        """Verify if boar was imported, if yes it resolve game using the algorithm and set hints.
+
+        Keyword arguments:
+        mode -- Get int number, if it is 2 game will be imported.
+        return -- boolean if it was imported return true.
+        """
+        if mode != 2:
+            return False
+        sudoku_game = Game()
+        board = Board()
+        game_resources = GameResources()
+        board.hints = []
+        solved_board = game_resources.call_algorithm_to_solve(board)
+        if solved_board.count(0) > 0:
+            board.hints.append((0, 0))
+            board.resolved = []
+            return False
+        for position in xrange(len(solved_board)):
+            if board.board[position] == 0:
+                board.hints.append((position, solved_board[position]))
+        if len(board.hints) > 0:
+            sudoku_game.hints = board.hints
+        board.get_resolved_game()
+        return True
+
     def verify_selected_option(self, board, game_resources):
         """This function verify the option introduced by user in order to executed an specific
         command.
@@ -102,14 +128,15 @@ class MenuGame(object):
         board -- Get board of game, Array of int eg:[8,6,2,0,...,9]
         return -- Return a tuple of command to execute or board result and flag
         """
-        missing_numbers = len(board.hints)
-        print("Missing numbers: %i" % missing_numbers)
+        print("Missing numbers: %i" % board.board.count(0))
         option = raw_input("\nEnter menu option or board position (eg: D7): ")
         if board.board == board.resolved and option.upper() not in ['E', 'B', 'R', 'N']:
             return 'raw_input("\\nCongratulations! you did it. Sudoku solved successfully")', 'not_break'
         elif board.board.count(0) == 0 and option.upper() not in ['E', 'B', 'R', 'N']:
-            print("\nThe solution is not correct, please see below in solved game and compare:\n")
-            board.print_board(board.resolved)
+            print("\nThe solution is not correct, ")
+            if len(board.resolved) == 81:
+                print("please see below in solved game and compare:\n")
+                board.print_board(board.resolved)
             return 'raw_input("\\n...(please press any key to continue)")', 'not_break'
         else:
             if option.upper() == 'N':

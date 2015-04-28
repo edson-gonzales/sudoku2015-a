@@ -5,6 +5,7 @@
 import random
 from utils.singleton import Singleton
 
+
 class Game(object):
 
     __metaclass__ = Singleton

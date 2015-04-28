@@ -35,10 +35,11 @@ class MenuImport(object):
         """
         game = Game()
         board = Board()
+        submenu = MenuGame()
         menu = Menu('Sudoku Solver - Import Game')
         menu.clear_items()
-        menu.add_item((1, 'Import from CSV File', self.import_from_csv_file, (display_main_menu, game, board, menu)))
-        menu.add_item((2, 'Import from TXT File', self.import_from_txt_file, (display_main_menu, game, board, menu)))
+        menu.add_item((1, 'Import from CSV File', self.import_from_csv_file, (display_main_menu, game, board, submenu)))
+        menu.add_item((2, 'Import from TXT File', self.import_from_txt_file, (display_main_menu, game, board, submenu)))
         menu.add_item((3, 'Import from Input', self.import_from_input, display_main_menu))
         menu.add_item((4, 'Back', display_main_menu, 0))
         menu.add_item((0, 'Exit', None))
@@ -55,9 +56,10 @@ class MenuImport(object):
             self.store_last_used_folder(file_to_be_imported.file_path)
             file_content = file_to_be_imported.read_content()
             imported_game = self.converter.convert_csv_string_to_game_list(file_content, self.blank_character)
+            imported_game = [int(numeric_string) for numeric_string in imported_game]
             param[1].import_game(imported_game)
             param[2].board = param[1].board
-            param[3].play_game((0, param[0]))
+            param[3].play_game((2, param[0]))
         else:
             self.display_import_menu(param[0])
 
@@ -72,9 +74,10 @@ class MenuImport(object):
             self.store_last_used_folder(file_to_be_imported.file_path)
             file_content = file_to_be_imported.read_content()
             imported_game = self.converter.convert_txt_string_to_game_list(file_content, self.blank_character)
+            imported_game = [int(numeric_string) for numeric_string in imported_game]
             param[1].import_game(imported_game)
             param[2].board = param[1].board
-            param[3].play_game((0, param[0]))
+            param[3].play_game((2, param[0]))
         else:
             self.display_import_menu(param[0])
 

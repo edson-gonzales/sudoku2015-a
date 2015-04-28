@@ -21,12 +21,19 @@ class AlgorithmSolver(object):
         result = self.algorithm.solve(board)
         if result is not None:
             board = [int(numeric_string) for numeric_string in result]
-            print("\nAlgorithm solve this board!\n")
-            board_object.print_board(board_object.resolved)
-            raw_input("\n...(please press any key to continue)")
+            if len(board_object.hints) > 1:
+                print("\nAlgorithm solve this board!\n")
+                board_object.print_board(board_object.resolved)
+                raw_input("\n...(please press any key to continue)")
         else:
-            print("\nAlgorithm cannot solve this board, please see below in solved game and compare: \n")
-            board = [int(numeric_string) for numeric_string in board]
-            board_object.print_board(board_object.resolved)
-            raw_input("\n...(please press any key to continue)")
+            if len(board_object.hints) > 1 and board_object.resolved.count(0) == 0:
+                print("\nAlgorithm cannot solve this board, please see below in solved game and compare: \n")
+                board = [int(numeric_string) for numeric_string in board]
+                board_object.print_board(board_object.resolved)
+                raw_input("\n...(please press any key to continue)")
+            elif len(board_object.hints) > 0 and board_object.hints[0] == (0, 0):
+                board = [int(numeric_string) for numeric_string in board]
+                raw_input("\nThere is not a solution for this board ...(please press any key to continue)")
+            else:
+                board = [int(numeric_string) for numeric_string in board]
         return board
