@@ -23,12 +23,11 @@ class AlgorithmSolver(object):
         timestamp = time.clock()
         result = self.algorithm.solve(board)
         timer = str(time.clock() - timestamp)
-        timer_message = '\nIt took: ' + timer + ' seconds for SudokuSolver to solve the current game.\n'
 
         if result is not None:
             board = [int(numeric_string) for numeric_string in result]
             if len(board_object.hints) > 1:
-                print timer_message
+                print('\nIt took: ' + timer + ' seconds for SudokuSolver to solve the current game.\n')
                 board_object.print_board(board_object.resolved)
                 raw_input("\n...(please press any key to continue)")
         else:
