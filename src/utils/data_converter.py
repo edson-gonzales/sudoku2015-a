@@ -12,12 +12,12 @@ class DataConverter(object):
     """
     __metaclass__ = Singleton
 
-
     def convert_csv_string_to_game_list(self, csv_string, blank_character_code):
         """
         Based on a csv formatted string it will return a list which is the standard
         format to be used as a sudoku board game (i.e. ['0', '0', '3', '0',...])
         If the csv string is not valid it will return None.
+        Keyword arguments:
         csv_string -- csv content as a string, it should have 81 items (i.e. 0,0,3,0,...)
         blank_character_code -- is an integer containing the ASCII code of a character to
         be placed in the game as empty spots (i.e. 42 which represents the star sign '*')
@@ -35,14 +35,15 @@ class DataConverter(object):
         else:
             return None
 
-
     def convert_txt_string_to_game_list(self, txt_string, blank_character_code):
         """
         Based on a txt formatted string it will return a list which is the standard
         format to be used as a sudoku board game (i.e. ['0', '0', '3', '0',...])
         If the txt string is not valid it will return None.
+        Keyword arguments:
         txt_string -- the txt file content as a string, it should have 81 characters separated
         by a new line character every 9 characters (i.e. 200080300\n060070084\n030500209...)
+        it can also be in the exported txt format which is a plus :)
         blank_character_code -- is an integer containing the ASCII code of a character to
         be placed in the game as empty spots (i.e. 42 which represents the star sign '*')
         """
@@ -53,6 +54,7 @@ class DataConverter(object):
         txt_string = str.replace(txt_string, '|', '')
         txt_string = str.replace(txt_string, '-', '')
         txt_string = str.replace(txt_string, '+', '')
+        txt_string = str.replace(txt_string, '\r', '')
         txt_string = str.replace(txt_string, '\n\n', '\n')
 
         if self.validate_txt_lines(txt_string):
@@ -64,11 +66,11 @@ class DataConverter(object):
         else:
             return None
 
-
     def validate_txt_lines(self, txt_content):
         """
         Returns True if the lines have the proper format to be handled by the program
         otherwise it returns False
+        Keyword arguments:
         txt_content -- the txt file content as a string, it should have 81 characters separated
         by a new line character every 9 characters (i.e. 200080300\n060070084\n030500209...)
         """
@@ -82,12 +84,12 @@ class DataConverter(object):
             result = False
         return result
 
-
     def convert_input_string_to_game_list(self, input_string, blank_character_code):
         """
         Based on a string retrived using the raw_input method it will return a list which
         is the standard format to be used as a sudoku board game (i.e. ['0', '0', '3', '0',...])
         If the txt string is not valid it will return None.
+        Keyword arguments:
         input_string -- the input retrieved as a string, it should have 81 characters (i.e. 2000803...)
         blank_character_code -- is an integer containing the ASCII code of a character to
         be placed in the game as empty spots (i.e. 42 which represents the star sign '*')
@@ -100,10 +102,10 @@ class DataConverter(object):
         else:
             return None
 
-
     def convert_game_list_to_csv_string(self, game_list_to_export, blank_character_code):
         """
-        Returns a csv formatted string containing the game board digits as items
+        Returns a csv formatted string containing the game board digits as items.
+        Keyword arguments:
         game_list_to_export -- it is a list containing the game board (i.e. 0,0,3,0,...)
         blank_character_code -- is an integer containing the ASCII code of a character to
         be placed in the game as empty spots (i.e. 42 which represents the star sign '*')
@@ -114,10 +116,10 @@ class DataConverter(object):
         csv_string = self.add_character_every_x_characters(csv_string, ',', 9)
         return csv_string
 
-
     def convert_game_list_to_txt_string(self, game_list_to_export, blank_character_code):
         """
         Returns a sudoku board formatted string based on the arguments.
+        Keyword arguments:
         game_list_to_export -- it is a list containing the game board (i.e. 0,0,3,0,...)
         blank_character_code -- is an integer containing the ASCII code of a character to
         be placed in the game as empty spots (i.e. 42 which represents the star sign '*')
@@ -140,13 +142,14 @@ class DataConverter(object):
 
         game_formatted = self.add_character_every_x_characters(game_formatted, '\n', 19)
         game_formatted = self.add_character_every_x_characters(game_formatted, '------+------+-----\n', 60, 0)
+        game_formatted = str.replace(game_formatted, '\n', '\r\n')
 
         return game_formatted
-
 
     def add_character_every_x_characters(self, string_to_add_character, character, number_of_characters, trim=1):
         """
         Returns a string resultant from adding a specified character every specified characters.
+        Keyword arguments:
         string_to_add_character -- string where the changes will occur (i.e. 'some random text')
         character -- a string containing the character to be added (i.e. '\n')
         number_of_characters -- an integer containing the number of characters between aditions (i.e. 9)
@@ -164,11 +167,11 @@ class DataConverter(object):
             result = result[:-trim]
         return result
 
-
     def validate_final_list(self, game_list):
         """
         Returns a boolean containing the result of the validation performed which consists in
         validating the list has length of 81, and the list is a list of integers.
+        Keyword arguments:
         game_list -- the list containing the sudoku game data (i.e. ['0', '0', '3', '0',...])
         """
         result = True

@@ -6,8 +6,8 @@ from configuration.configuration import CONFIGURATION_FILE_PATH
 from configuration.configuration import Configuration
 from file_manager.file_manager import File
 from utils.data_converter import DataConverter
-from menu import Menu
 from utils.singleton import Singleton
+from menu import Menu
 from game import Game
 from board import Board
 from ui.menus.menu_game import MenuGame

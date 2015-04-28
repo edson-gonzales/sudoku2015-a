@@ -6,11 +6,11 @@ from game import *
 from board import *
 from menu import Menu
 from ui.menus.menu_import import *
-from configuration import *
+from configuration import CONFIGURATION_FILE_PATH
+from configuration import Configuration
 from utils.game_resources import *
 import Tkinter
 import tkFileDialog
-import os
 
 
 class MenuGame(object):
@@ -28,34 +28,60 @@ class MenuGame(object):
         items, it calls an ask function in order to get an option selected by user.
 
         Keyword arguments:
-        display_main_menu -- Get a address of father menu used in back option.
+        display_main_menu -- Gets an address of father menu used in back option.
         """
         menu = Menu('Sudoku Solver - Game Section')
         menu.clear_items()
         menu.add_item((1, 'Start/Continue Game', self.play_game, (0, display_main_menu)))
         menu.add_item((2, 'New Game', self.play_game, (1, display_main_menu)))
         menu.add_item((3, 'Export Game (txt)', self.export_game_in_txt_format, display_main_menu))
-        menu.add_item((4, 'Export Game (csv)', self.display_game_menu, display_main_menu))
+        menu.add_item((4, 'Export Game (csv)', self.export_game_in_csv_format, display_main_menu))
         menu.add_item((9, 'Back', display_main_menu, 0))
         menu.add_item((0, 'Exit', None))
         menu.ask()
 
     def export_game_in_txt_format(self, display_main_menu):
+        """
+        Exports the current game instance to a file in a defined txt format.
+        Keyword arguments:
+        display_main_menu -- is the main menu object that will be eventually called.
+        """
         default_type = 'txt'
         file_to_export = self.save_file_dialog(default_type)
         data_converter = DataConverter()
         board = Board()
-        c = [str(numeric_string) for numeric_string in board.board]
-        game_formatted_as_string = data_converter.convert_game_list_to_txt_string(c, self.blank_character)
-        file_to_export.write_content(game_formatted_as_string)
+        board_as_string_list = [str(numeric_string) for numeric_string in board.board]
+        game_formatted_as_string = data_converter.convert_game_list_to_txt_string(board_as_string_list,
+                                                                                  self.blank_character)
+        if file_to_export.file_path != '':
+            file_to_export.write_content(game_formatted_as_string)
+        self.display_game_menu(display_main_menu)
+
+    def export_game_in_csv_format(self, display_main_menu):
+        """
+        Exports the current game instance to a file in a defined csv format.
+        (i.e. '003020600,900305001,001806400...')
+        Keyword arguments:
+        display_main_menu -- is the main menu object that will be eventually called.
+        """
+        default_type = 'csv'
+        file_to_export = self.save_file_dialog(default_type)
+        data_converter = DataConverter()
+        board = Board()
+        board_as_string_list = [str(numeric_string) for numeric_string in board.board]
+        game_formatted_as_string = data_converter.convert_game_list_to_csv_string(board_as_string_list,
+                                                                                  self.blank_character)
+        if file_to_export.file_path != '':
+            file_to_export.write_content(game_formatted_as_string)
         self.display_game_menu(display_main_menu)
 
     def save_file_dialog(self, default_type):
         """
-        Uses Tkinter to launch an File Browser that will select a specific file.
+        Uses Tkinter to launch an File Browser that will select a folder and a file name for
+        the exported game to be saved into.
         It returns the file selected in a File object.
-        file_types -- An array of tuples containing the files allowed by the file
-        browser (i.e. [('Text files', '*.txt'), ('All files', '*')])
+        Keyword arguments:
+        default_type -- a string containing the default file type for the exported game (i.e. 'txt')
         """
         root = Tkinter.Tk()
         root.withdraw()

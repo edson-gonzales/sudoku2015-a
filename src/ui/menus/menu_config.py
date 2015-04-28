@@ -4,7 +4,7 @@
 
 from configuration.configuration import CONFIGURATION_FILE_PATH
 from configuration.configuration import Configuration
-from file_manager.file_manager import *
+from file_manager.file_manager import File
 from menu import Menu
 from utils.singleton import Singleton
 
@@ -20,6 +20,7 @@ class MenuConfig(object):
         In order to support changes and persistent configuration.
         Define a menu object that is provided with Title, Description and
         items. It calls an ask function in order to get an option selected by user.
+        Keyword arguments:
         display_main_menu -- is the main menu object that will be eventually called.
         """
         menu = Menu('Sudoku Solver - Configuration')
@@ -31,7 +32,6 @@ class MenuConfig(object):
         menu.add_item((4, 'Back', display_main_menu, 0))
         menu.add_item((0, 'Exit', None))
         menu.ask()
-
 
     def get_formatted_configuration(self):
         """
@@ -49,11 +49,11 @@ class MenuConfig(object):
                      '    Algorithm: ' + configuration.algorithm
         return config_txt
 
-
     def modify_level_menu(self, display_main_menu):
         """
         Displays the corresponding menu for modifying the level in the
         configuration.
+        Keyword arguments:
         display_main_menu -- is the main menu object that will be eventually called
         """
         menu = Menu('Sudoku Solver - Configuration')
@@ -67,11 +67,11 @@ class MenuConfig(object):
         menu.add_item((0, 'Exit', None))
         menu.ask()
 
-
     def modify_custom_level_menu(self, display_main_menu):
         """
         Displays the corresponding menu for modifying the custom level in the
         configuration.
+        Keyword arguments:
         display_main_menu -- is the main menu object that will be eventually called
         """
         menu = Menu('Sudoku Solver - Configuration')
@@ -96,11 +96,11 @@ class MenuConfig(object):
             print "Invalid values entered"
         self.display_configuration_menu(display_main_menu)
 
-
     def modify_blank_character_menu(self, display_main_menu):
         """
         Displays the corresponding menu for modifying the custom blank character in the
         configuration.
+        Keyword arguments:
         display_main_menu -- is the main menu object that will be eventually called
         """
         menu = Menu('Sudoku Solver - Configuration')
@@ -115,10 +115,10 @@ class MenuConfig(object):
                 print "Invalid character"
         self.display_configuration_menu(display_main_menu)
 
-
     def validate_blank_char(self, blank_char):
         """
         Returns True if the blank character is entered as parameter is not a forbidden one.
+        Keyword arguments:
         blank_char -- a string containing the custom blank character to be saved by another method.
         """
         result = True
@@ -133,10 +133,10 @@ class MenuConfig(object):
             print "Invalid character"
         return result
 
-
     def modify_algorithm_menu(self, display_main_menu):
         """
         Displays the corresponding menu for modifying the algorithm in the configuration.
+        Keyword arguments:
         display_main_menu -- is the main menu object that will be eventually called
         """
         menu = Menu('Sudoku Solver - Configuration')
@@ -149,7 +149,6 @@ class MenuConfig(object):
         menu.add_item((0, 'Exit', None))
         menu.ask()
 
-
     def modify_configuration(self, config_data):
         """
         Modifies the configuration based on a tuple retrieved as an argument.
@@ -159,7 +158,7 @@ class MenuConfig(object):
         setting name and the new value; the position 2 contains the display_main_menu object which is
         the main menu object that will be eventually called.
         """
-        config_file = self.File(CONFIGURATION_FILE_PATH)
+        config_file = File(CONFIGURATION_FILE_PATH)
         setting = config_data[0]
         new_value = config_data[1]
         display_main_menu = config_data[2]

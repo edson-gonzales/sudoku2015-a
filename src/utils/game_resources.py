@@ -9,10 +9,6 @@ from solver.algorithms.norvig_solver import NorvigSolver
 # from solver.algorithms.backtraking_solver import Backtraking
 # from solver.algorithms.bruteforce_solver import Bruteforce
 
-PATH = os.path.dirname(os.path.abspath(__file__))
-
-CONFIGURATION_FILE_PATH = PATH + '..\\..\\configuration\\xml_config.xml'
-
 
 class GameResources(object):
 
