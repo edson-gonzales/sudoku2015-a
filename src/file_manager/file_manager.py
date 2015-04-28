@@ -26,7 +26,6 @@ class File(object):
         It returns a string containing the content read
         """
         file_content = ''
-
         try:
             fo = open(self.file_path)
             file_content = fo.read()

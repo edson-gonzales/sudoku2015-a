@@ -111,10 +111,7 @@ class MenuGame(object):
             board.print_ui()
             result = self.verify_selected_option(board, game_resources)
             try:
-                if result[1] == 'object':
-                    board.board = result[0]
-                else:
-                    exec result[0]
+                exec result[0]
                 if result[1] == 'break':
                     break
             except:
@@ -165,16 +162,14 @@ class MenuGame(object):
                 board.print_board(board.resolved)
             return 'raw_input("\\n...(please press any key to continue)")', 'not_break'
         else:
-            if option.upper() == 'N':
-                return 'self.play_game((1, mode[1]))', 'break'
-            elif option.upper() == 'E':
-                return 'break', 'break'
-            elif option.upper() == 'B':
-                return 'self.display_game_menu(mode[1])', 'break'
-            elif option.upper() == 'R':
-                return 'board.board = game_resources.call_algorithm_to_solve(board)', 'not_break'
-            elif option.upper() == 'H':
-                return 'board.set_hint()', 'not_break'
-            else:
-                return game_resources.return_result_of_validation(game_resources.verify_value_defined(option),
-                                                                  board.board), 'object'
+            select_option = str(option)
+            if select_option.upper() not in ['E', 'B', 'R', 'N', 'H']:
+                select_option = 'NA'
+            options = {'N': ('self.play_game((1, mode[1]))', 'break'),
+                       'E': ('break', 'break'),
+                       'B': ('self.display_game_menu(mode[1])', 'break'),
+                       'R': ('board.board = game_resources.call_algorithm_to_solve(board)', 'not_break'),
+                       'H': ('board.set_hint()', 'not_break'),
+                       'NA': ('game_resources.return_result_of_validation(game_resources.verify_value_defined("' +
+                              option +'"), board.board)', 'object')}
+            return options[select_option.upper()]

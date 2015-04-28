@@ -4,8 +4,9 @@
 
 from xml.dom.minidom import *
 from utils.singleton import Singleton
+import os
 
-CONFIGURATION_FILE_PATH = 'configuration\\xml_config.xml'
+CONFIGURATION_FILE_PATH = os.path.dirname(os.path.abspath(__file__)) + '..\\..\\configuration\\xml_config.xml'
 
 class Configuration(object):
     """Configuration instance object has attributes containing the
