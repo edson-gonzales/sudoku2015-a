@@ -18,7 +18,6 @@ class ConfigurationTest(unittest.TestCase):
     SAMPLE_ALGORITHM = 'norvigs'
     SAMPLE_FILE_PATH = 'D:\\'
     SAMPLE_CUSTOM_LEVEL_DEFAULTS = 'Custom:30:50'
-
     XML_SAMPLE = '<?xml version="1.0" ?><configuration>'\
         + '<level>' + SAMPLE_LEVEL + '</level>' \
         + '<blank_character>' + SAMPLE_BLANK_CHARACTER + '</blank_character>' \
