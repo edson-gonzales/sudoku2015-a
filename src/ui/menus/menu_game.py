@@ -12,6 +12,7 @@ import Tkinter
 import tkFileDialog
 import os
 
+
 class MenuGame(object):
 
     __metaclass__ = Singleton

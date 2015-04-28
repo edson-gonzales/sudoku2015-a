@@ -26,7 +26,6 @@ class MenuImport(object):
     blank_character = configuration.blank_character
     converter = DataConverter()
 
-
     def display_import_menu(self, display_main_menu):
         """Sub menu of Main,this function provide to user options to manage the configuration of application
         in order to support changes and persistent configuration.
@@ -34,16 +33,18 @@ class MenuImport(object):
         items, it calls an ask function in order to get an option selected by user.
         display_main_menu -- is the main menu object that will be eventually called.
         """
+        game = Game()
+        board = Board()
         menu = Menu('Sudoku Solver - Import Game')
         menu.clear_items()
-        menu.add_item((1, 'Import from CSV File', self.import_from_csv_file, display_main_menu))
-        menu.add_item((2, 'Import from TXT File', self.import_from_txt_file, display_main_menu))
+        menu.add_item((1, 'Import from CSV File', self.import_from_csv_file, (display_main_menu, game, board, menu)))
+        menu.add_item((2, 'Import from TXT File', self.import_from_txt_file, (display_main_menu, game, board, menu)))
         menu.add_item((3, 'Import from Input', self.import_from_input, display_main_menu))
         menu.add_item((4, 'Back', display_main_menu, 0))
         menu.add_item((0, 'Exit', None))
         menu.ask()
 
-    def import_from_csv_file(self, display_main_menu):
+    def import_from_csv_file(self, param):
         """
         Imports a game from a file in csv format (i.e. 123456789,123456789,123...)
         display_main_menu -- is the main menu object that will be eventually called.
@@ -54,17 +55,13 @@ class MenuImport(object):
             self.store_last_used_folder(file_to_be_imported.file_path)
             file_content = file_to_be_imported.read_content()
             imported_game = self.converter.convert_csv_string_to_game_list(file_content, self.blank_character)
-            game = Game()
-            game.import_game(imported_game)
-            board = Board()
-            board.board = game.board
-            menu = MenuGame()
-            menu.play_game((0,display_main_menu))
+            param[1].import_game(imported_game)
+            param[2].board = param[1].board
+            param[3].play_game((0, param[0]))
         else:
-            self.display_import_menu(display_main_menu)
+            self.display_import_menu(param[0])
 
-
-    def import_from_txt_file(self, display_main_menu):
+    def import_from_txt_file(self, param):
         """
         Imports a game from a file in txt format.
         display_main_menu -- is the main menu object that will be eventually called.
@@ -75,15 +72,11 @@ class MenuImport(object):
             self.store_last_used_folder(file_to_be_imported.file_path)
             file_content = file_to_be_imported.read_content()
             imported_game = self.converter.convert_txt_string_to_game_list(file_content, self.blank_character)
-            game = Game()
-            game.import_game(imported_game)
-            board = Board()
-            board.board = game.board
-            menu = MenuGame()
-            menu.play_game((0,display_main_menu))
+            param[1].import_game(imported_game)
+            param[2].board = param[1].board
+            param[3].play_game((0, param[0]))
         else:
-            self.display_import_menu(display_main_menu)
-
+            self.display_import_menu(param[0])
 
     def import_from_input(self, display_main_menu):
         """
@@ -96,7 +89,6 @@ class MenuImport(object):
             print imported_game
         else:
             self.display_import_menu(display_main_menu)
-
 
     def file_browser_dialog(self, file_types):
         """
@@ -112,7 +104,6 @@ class MenuImport(object):
         file_path = tkFileDialog.askopenfilename(initialdir=folder, filetypes=file_types, multiple=False)
         file_to_be_imported = File(file_path)
         return file_to_be_imported
-
 
     def store_last_used_folder(self, last_used_file_path):
         """
