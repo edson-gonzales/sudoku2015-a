@@ -1,6 +1,7 @@
 # algorithm_solver.py
 # author: Daniel Jauergui
 # date: 4-23-2015
+import time
 
 
 class AlgorithmSolver(object):
@@ -18,16 +19,21 @@ class AlgorithmSolver(object):
         """
         board = board_object.board
         board = [str(numeric_string) for numeric_string in board]
+
+        timestamp = time.clock()
         result = self.algorithm.solve(board)
+        timer = str(time.clock() - timestamp)
+        timer_message = '\nIt took: ' + timer + ' seconds for SudokuSolver to solve the current game.\n'
+
         if result is not None:
             board = [int(numeric_string) for numeric_string in result]
             if len(board_object.hints) > 1:
-                print("\nAlgorithm solve this board!\n")
+                print timer_message
                 board_object.print_board(board_object.resolved)
                 raw_input("\n...(please press any key to continue)")
         else:
             if len(board_object.hints) > 1 and board_object.resolved.count(0) == 0:
-                print("\nAlgorithm cannot solve this board, please see below in solved game and compare: \n")
+                print("\nSudokuSolver cannot solve this board, please see below in solved game and compare: \n")
                 board = [int(numeric_string) for numeric_string in board]
                 board_object.print_board(board_object.resolved)
                 raw_input("\n...(please press any key to continue)")
