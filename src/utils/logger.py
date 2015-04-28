@@ -1,15 +1,14 @@
 import os
 import logging
 import sys
-sys.path.append("../utils")
 from singleton import Singleton
 
 
-class LoggerAdmin(object):
-
+class Logger(object):
+    OUTPUT_FORMAT = "%(asctime)s %(name)s - %(levelname)s - %(message)s"
     __metaclass__ = Singleton
 
-    def __init__(self,log_file_path, log_file_name="logger.log"):
+    def __init__(self, log_file_path, log_file_name="logger.log"):
         """
         Initialize attibutes
         log_file_path -- the path where .log file is stored,
@@ -19,7 +18,7 @@ class LoggerAdmin(object):
         file_handler = self.get_file_handler(log_file_name)
         self.logger = logging.getLogger()
         self.logger.setLevel(logging.DEBUG)
-        formatter = logging.Formatter("%(asctime)s %(name)s - %(levelname)s - %(message)s")
+        formatter = logging.Formatter(self.OUTPUT_FORMAT)
         file_handler.setFormatter(formatter)
         self.logger.addHandler(file_handler)
 
@@ -29,8 +28,8 @@ class LoggerAdmin(object):
         log file name -- name of log file
         """
         self.log_file_abs_path = os.path.abspath(self.log_file_path + log_file_name)
-        filehandler = logging.FileHandler(self.log_file_abs_path, 'a')
-        return filehandler
+        file_handler = logging.FileHandler(self.log_file_abs_path, 'a')
+        return file_handler
 
     def debug(self, message):
         """
