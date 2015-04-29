@@ -35,7 +35,7 @@ class File(object):
             fo = open(self.file_path)
             file_content = fo.read()
         except IOError:
-            logger.error("cannot read file")
+            logger.error("cannot read file ")
             raise IOError('cannot read file')            
         finally:
             fo.close()
