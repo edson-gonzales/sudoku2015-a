@@ -2,6 +2,7 @@
 # author: Daniel Jauergui
 # date: 4-13-2015
 
+import os
 from utils.singleton import Singleton
 
 
@@ -37,6 +38,7 @@ class Board(object):
     def print_ui(self):
         """ Print the title, Menus and Board
         """
+        os.system('cls')
         self.print_title()
         self.print_top_menu()
         self.print_board(self.board)

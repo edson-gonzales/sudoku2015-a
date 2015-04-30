@@ -29,8 +29,8 @@ data_converter_suite = unittest.TestLoader().loadTestsFromTestCase(DataConverter
 game_suit = unittest.TestLoader().loadTestsFromTestCase(GameTest)
 
 # Load Test Suite
+
 all_tests = unittest.TestSuite([file_manager_suite, configuration_suite, norvig_solver_suite,
 								Fallin_solver_suite,data_converter_suite, game_suit])
-
 # Execute Test Suite
 unittest.TextTestRunner(verbosity=2).run(all_tests)

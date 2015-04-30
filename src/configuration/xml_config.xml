@@ -1,7 +1,8 @@
 <?xml version="1.0" ?>
 <configuration>
-    <level>easy</level>
-    <algorithm>norvigs</algorithm>
-    <file_path_save>D:\</file_path_save>
-    <file_name_save>sudoku.txt</file_name_save>
+	<level>Medium:30:40</level>
+	<blank_character>42</blank_character>
+	<algorithm>NorvigSolver</algorithm>
+	<file_path_save>C:\</file_path_save>
+	<custom_level_defaults>Custom:77:78</custom_level_defaults>
 </configuration>
