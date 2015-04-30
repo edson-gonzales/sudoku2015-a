@@ -31,7 +31,6 @@ class FileManagerTest(unittest.TestCase):
             fo.write(self.SAMPLE_CONTENT_2)            
         except IOError:
             logger.error("cannot write content to file")
-            raise IOError('cannot write content to file')
         finally:
             fo.close()
 
@@ -42,7 +41,6 @@ class FileManagerTest(unittest.TestCase):
             file_content = fo.read()
         except IOError:
             logger.error("cannot read file")
-            raise IOError('cannot read file')
         finally:
             fo.close()
 
@@ -66,8 +64,7 @@ class FileManagerTest(unittest.TestCase):
             fo = open(self.TEST_FILE, "wb")
             fo.write(self.SAMPLE_CONTENT)
         except IOError:
-            logger.error("cannot write content to file")
-            raise IOError('cannot write content to file')            
+            logger.error("cannot write content to file")           
         finally:
             fo.close()
 
@@ -81,8 +78,7 @@ class FileManagerTest(unittest.TestCase):
             fo = open(self.TEST_FILE, "wb")
             fo.write('d')
         except IOError:
-            logger.error("cannot write content to file")
-            raise IOError('cannot write content to file')            
+            logger.error("cannot write content to file")           
         finally:
             fo.close()
 
@@ -98,7 +94,6 @@ class FileManagerTest(unittest.TestCase):
             fo.write('d')
         except IOError:
             logger.error("cannot write content to file")
-            raise IOError('cannot write content to file')
         finally:
             fo.close()
 

@@ -35,8 +35,7 @@ class File(object):
             fo = open(self.file_path)
             file_content = fo.read()
         except IOError:
-            logger.error("cannot read file ")
-            raise IOError('cannot read file')            
+            logger.error("cannot read file ")           
         finally:
             fo.close()
 
@@ -58,8 +57,7 @@ class File(object):
             fo = open(self.file_path, "wb")
             fo.write(file_content)
         except IOError:
-            logger.error("cannot write content to file")
-            raise IOError('cannot write content to file')            
+            logger.error("cannot write content to file")            
             result = False
         finally:
             fo.close()
