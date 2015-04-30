@@ -3,7 +3,9 @@
 # date: 4-2-2015
 
 import os
-
+import sys
+sys.path.append("../utils")
+from logger import Logger
 
 class File(object):
     """File instance objects have as the only attribute the file path of a file.
@@ -15,6 +17,9 @@ class File(object):
 
     def __init__(self, file_path):
         self.file_path = file_path
+        """Instantiate logger """
+        global logger
+        logger =  Logger("log/")
 
     def read_content(self):
         """Uses native python implementations to read files,
@@ -25,12 +30,12 @@ class File(object):
 
         It returns a string containing the content read
         """
-        file_content = ''
+        file_content = ''        
         try:
             fo = open(self.file_path)
             file_content = fo.read()
         except IOError:
-            raise IOError('cannot read file')
+            logger.error("cannot read file ")           
         finally:
             fo.close()
 
@@ -52,7 +57,7 @@ class File(object):
             fo = open(self.file_path, "wb")
             fo.write(file_content)
         except IOError:
-            raise IOError('cannot write content to file')
+            logger.error("cannot write content to file")            
             result = False
         finally:
             fo.close()
