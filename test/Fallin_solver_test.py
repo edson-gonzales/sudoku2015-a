@@ -1,6 +1,6 @@
-# norvig_solver_test.py
+# Fallin_Solver_test.py
 # author: Lenny Flores
-# date: 4-12-2015
+# date: 4-30-2015
 
 import unittest
 import os
