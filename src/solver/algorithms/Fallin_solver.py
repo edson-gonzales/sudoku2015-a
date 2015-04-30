@@ -1,6 +1,6 @@
 # Fallin_solver.py
 # author: Lenny Flores
-# date: 4-24-2015
+# date: 4-30-2015
 
 class FallinSolver(object):
     """Initialize cells and count matrices"""

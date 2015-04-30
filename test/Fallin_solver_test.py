@@ -1,5 +1,5 @@
 # norvig_solver_test.py
-# author: Josue Mendoza
+# author: Lenny Flores
 # date: 4-12-2015
 
 import unittest
