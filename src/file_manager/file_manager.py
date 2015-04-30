@@ -17,7 +17,7 @@ class File(object):
 
     def __init__(self, file_path):
         self.file_path = file_path
-        """Instantiate logger"""
+        """Instantiate logger """
         global logger
         logger =  Logger("log/")
 
